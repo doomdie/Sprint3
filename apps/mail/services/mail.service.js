@@ -8,6 +8,7 @@ const MAIL_KEY = 'mailDB'
 
 export const mailService = {
     query,
+    get,
 }
 
 
@@ -102,4 +103,8 @@ function query() {
             mails.sort((a, b) => b.sentAt - a.sentAt)
             return mails
         })
+}
+
+function get(mailId) {
+    return storageService.get(MAIL_KEY, mailId)
 }
