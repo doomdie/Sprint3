@@ -1,0 +1,26 @@
+/* mail preview */
+
+.mail-preview {
+    display: grid;
+    grid-template-columns: 12.5rem 1fr 6rem;
+
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--mail-border);
+
+    cursor: pointer;
+}
+
+.mail-preview.read {
+    background-color: var(--mail-read);
+}
+
+.mail-preview.unread {
+    background-color: var(--mail-unread);
+
+    font-weight: bold;
+}
+
+.mail-preview.read:hover,
+.mail-preview.unread:hover {
+    background-color: var(--mail-hover);
+}

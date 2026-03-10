@@ -40,8 +40,51 @@ const mails = [
         from: 'boss@work.com',
         to: 'user@appsus.com'
     },
+    {
+        id: 'e103',
+        createdAt: 1709538000000,
+        subject: 'Your order has shipped!',
+        body: 'Your package is on its way and should arrive within 3-5 business days',
+        isRead: false,
+        sentAt: 1709538000000,
+        removedAt: null,
+        from: 'shipping@amazon.com',
+        to: 'user@appsus.com'
+    },
+    {
+        id: 'e104',
+        createdAt: 1710316800000,
+        subject: 'Hey, how are you?',
+        body: 'Just wanted to check in and see how things are going with you',
+        isRead: true,
+        sentAt: 1710316800000,
+        removedAt: null,
+        from: 'user@appsus.com',
+        to: 'gal@friend.com'
+    },
+    {
+        id: 'e105',
+        createdAt: 1710403200000,
+        subject: 'Project update',
+        body: 'Here is the latest update on the project we discussed last week',
+        isRead: true,
+        sentAt: 1710403200000,
+        removedAt: null,
+        from: 'user@appsus.com',
+        to: 'team@work.com'
+    },
+    {
+        id: 'e106',
+        createdAt: 1710489600000,
+        subject: 'Security alert',
+        body: 'We noticed a new sign-in to your account from a new device',
+        isRead: false,
+        sentAt: 1710489600000,
+        removedAt: null,
+        from: 'security@google.com',
+        to: 'user@appsus.com'
+    },
 ]
-
 
 _createMails()
 
