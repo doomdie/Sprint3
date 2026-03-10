@@ -98,4 +98,8 @@ function _createMails() {
 
 function query() {
     return storageService.query(MAIL_KEY)
+        .then(mails => {
+            mails.sort((a, b) => b.sentAt - a.sentAt)
+            return mails
+        })
 }
