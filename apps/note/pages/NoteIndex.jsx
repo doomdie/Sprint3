@@ -1,4 +1,5 @@
 import { AddNote } from '../cmps/AddNote.jsx'
+import { NoteList } from '../cmps/NoteList.jsx'
 const { useState } = React
 
 export function NoteIndex() {
@@ -11,22 +12,21 @@ export function NoteIndex() {
             info: { txt },
             style: { backgroundColor: '#fff' }
         }
-
+    
         console.log('New note Pleasseeee work', newNote)
         setNotes(prevNotes => [newNote, ...prevNotes])
+    }
+    function onRemoveNote(hi) {
+        console.log("hi")
     }
 
     return (
         <section className="note-index">
             <AddNote onSaveNote={onSaveNote} />
 
-            <div className="note-list">
-                {notes.map(note => (
-                    <div key={note.id} className="page-note">
-                        {note.info.txt}
-                    </div>
-                ))}
-            </div>
+            <NoteList  onRemove={onRemoveNote} />
+                
+            
         </section>
     )
 }
