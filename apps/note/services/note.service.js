@@ -3,7 +3,9 @@ export const noteService = {
     query,
    
 }
-
+function query() {
+    return Promise.resolve(gNotes)
+}
 var gNotes = [
     {
         id: 'n101',

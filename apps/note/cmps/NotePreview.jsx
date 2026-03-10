@@ -1,20 +1,35 @@
-
 export function NotePreview({ note }) {
-    
-var testNote = [
-    {
-        id: 'n101',
-        type: 'NoteTxt',
-        isPinned: true,
-        style: { backgroundColor: '#00d' },
-        info: { txt: 'Fullstack Me Baby!' }
-    }, ]
-    return <article className='note-prev'>
-        <h3>{note.info.txt}</h3>
-        <img src={note.thumbnail} alt="" />
-        {/* <p><span className='bold-txt'>Price:</span> {listPrice.amount}</p>
-        <p><span className='bold-txt'>Currency:</span> {listPrice.currencyCode}</p> */}
-        {/* {listPrice.isOnSale && <img className="on-sale-icon" src="/assets/notesImages/onSale.png.png" alt="" />} */}
-    </article>
+    const { type, info, style } = note
 
+    return (
+        <article className='note-preview' style={style}>
+            
+            {type === 'NoteTxt' && (
+                <div className="note-text">
+                    <p>{info.txt}</p>
+                </div>
+            )}
+
+            {type === 'NoteImg' && (
+                <div className="note-img">
+                    <h3>{info.title}</h3>
+                    <img src={info.url} alt={info.title} style={{ maxWidth: '100%' }} />
+                </div>
+            )}
+
+            {type === 'NoteTodos' && (
+                <div className="note-todos">
+                    <h3>{info.title}</h3>
+                    <ul>
+                        {info.todos.map((todo, idx) => (
+                            <li key={idx} className={todo.isDone ? 'done' : ''}>
+                                {todo.txt}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
+        </article>
+    )
 }

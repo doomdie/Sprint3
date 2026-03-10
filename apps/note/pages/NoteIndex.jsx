@@ -1,10 +1,22 @@
 import { AddNote } from '../cmps/AddNote.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
-const { useState } = React
-
+import { noteService } from '../services/note.service.js'
+const { useState, useEffect } = React
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
-
+    useEffect(() => {
+        loadNotes()
+    }, [])
+    function loadNotes() {
+        noteService.query()
+            .then(notesFromService => {
+                console.log('Notes loaded:', notesFromService)
+                setNotes(notesFromService)
+            })
+            .catch(err => {
+                console.error('Had issues loading notes:', err)
+            }) }
+    
     function onSaveNote(txt) {
         const newNote = {
             id: 'n' + Date.now(),
@@ -23,8 +35,7 @@ export function NoteIndex() {
     return (
         <section className="note-index">
             <AddNote onSaveNote={onSaveNote} />
-
-            <NoteList  onRemove={onRemoveNote} />
+            <NoteList notes = {notes} onRemove={onRemoveNote} />
                 
             
         </section>

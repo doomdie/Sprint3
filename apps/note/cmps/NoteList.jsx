@@ -1,17 +1,17 @@
 import { NotePreview } from "./NotePreview.jsx"
 const { Link } = ReactRouterDOM
-var testNote = [
-    {
-        id: 'n101',
-        type: 'NoteTxt',
-        isPinned: true,
-        style: { backgroundColor: '#00d' },
-        info: { txt: 'Fullstack Me Baby!' }
-    }, ]
-export function NoteList({  onRemove }) {
+// var testNote = [
+//     {
+//         id: 'n101',
+//         type: 'NoteTxt',
+//         isPinned: true,
+//         style: { backgroundColor: '#00d' },
+//         info: { txt: 'Fullstack Me Baby!' }
+//     }, ]
+export function NoteList({notes,  onRemove }) {
     return <section className='notes-list'>
         <ul>
-            {testNote.map(note =>
+            {notes.map(note =>
                 <li key={note.id}>
                     <NotePreview note={note} />
                     <button onClick={() => onRemove(note.id)} className='close'><i className="fa-regular fa-trash-can"></i></button>
