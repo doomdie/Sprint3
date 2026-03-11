@@ -11,8 +11,13 @@
     --gray2: #888;
     --gray3: #333;
 
+    --white: #fff;
+
     --mail-border: #e0e0e0;
     --mail-hover: #eaf1fb;
     --mail-read: #f6f6f6;
-    --mail-unread: #fff;
+
+
+    --mail-compose-header: #404040;
+    --mail-compose-shadow: rgba(0, 0, 0, 0.2);
 }

@@ -15,7 +15,7 @@
 }
 
 .mail-preview.unread {
-    background-color: var(--mail-unread);
+    background-color: var(--white);
 
     font-weight: bold;
 }

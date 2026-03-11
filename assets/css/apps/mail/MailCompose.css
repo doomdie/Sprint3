@@ -1,0 +1,87 @@
+/* mail compose */
+
+.mail-compose {
+    position: fixed;
+    bottom: 0;
+    right: 2rem;
+    width: 28rem;
+
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+
+    background-color: var(--mail-compose-bg);
+    border-radius: 0.5rem 0.5rem 0 0;
+    box-shadow: 0 -2px 10px var(--mail-compose-shadow);
+
+}
+
+
+.mail-compose h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.7rem 1rem;
+    background-color: var(--mail-compose-header);
+    border-radius: 0.5rem 0.5rem 0 0;
+    margin: 0;
+
+    color: var(--white);
+}
+
+
+.mail-compose input,
+.mail-compose textarea {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-bottom: 1px solid var(--mail-border);
+
+    font-size: 0.9rem;
+    outline: none;
+}
+
+
+.mail-compose textarea {
+    min-height: 25rem;
+    resize: vertical;
+}
+
+
+.mail-compose .close-btn {
+    background: none;
+    border: none;
+
+    color: var(--white);
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+}
+
+.mail-compose .close-btn:hover {
+    background-color: var(--gray2);
+    border-radius: 20%;
+}
+
+.mail-compose .send-btn {
+    align-self: flex-start;
+
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 1rem;
+    background-color: var(--color1);
+    margin: 0.5rem 1rem;
+
+    font-size: 0.9rem;
+    color: var(--white);
+
+    cursor: pointer;
+}
+
+.mail-compose .send-btn:hover {
+    opacity: 0.85;
+    transform: scale(1.02);
+    transition: all 0.2s;
+}

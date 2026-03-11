@@ -15,8 +15,10 @@ export function MailCompose({ onClose, onSendMail }) {
 
 
     return <section className="mail-compose">
-        <h3>New Message</h3>
-        <button onClick={onClose}>X</button>
+        <h3>New Message
+            <button className="close-btn" onClick={onClose}>X</button>
+        </h3>
+
         <input
             type="text"
             name="to"
@@ -37,6 +39,6 @@ export function MailCompose({ onClose, onSendMail }) {
             value={newMail.body}
             onChange={handleChange}
         />
-        <button onClick={() => onSendMail(newMail)}>Send</button>
+        <button className="send-btn" onClick={() => onSendMail(newMail)}>Send</button>
     </section>
 }
