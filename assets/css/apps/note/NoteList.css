@@ -1,1 +1,8 @@
- /* note list */
+.notes-list ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 3em;
+
+    padding: 10;
+    list-style: none;
+}

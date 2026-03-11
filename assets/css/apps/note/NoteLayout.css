@@ -1,0 +1,14 @@
+.gallery-container {
+    .img-container {
+        column-count: 2;
+        column-width: 1fr;
+        column-gap: 15px;
+
+        img {
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+    }
+}
