@@ -15,7 +15,10 @@ export function MailPreview({ mail, onToggleRead }) {
             onContextMenu={onRightClick}
         >
             <span className="mail-from">{mail.from}</span>
-            <span className="mail-subject">{mail.subject}</span>
+            <span className="mail-subject">
+                {mail.subject}
+                <span className="mail-body-preview"> - {mail.body}</span>
+            </span>
             <span className="mail-date">{new Date(mail.sentAt).toLocaleDateString()}</span>
         </article>
     </Link>

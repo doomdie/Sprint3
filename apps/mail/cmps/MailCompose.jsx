@@ -7,12 +7,23 @@ export function MailCompose({ onClose, onSendMail }) {
         subject: '',
         body: ''
     })
+    const [msg, setMsg] = useState('')
+
 
     function handleChange(ev) {
         const { name, value } = ev.target
         setNewMail(prev => ({ ...prev, [name]: value }))
     }
 
+    function onSubmit() {
+        if (!newMail.to || !newMail.subject) {
+            setMsg('Please fill in To and Subject')
+            setTimeout(() => setMsg(''), 3000)
+            return
+        }
+        setMsg('')
+        onSendMail(newMail)
+    }
 
     return <section className="mail-compose">
         <h3>New Message
@@ -39,6 +50,7 @@ export function MailCompose({ onClose, onSendMail }) {
             value={newMail.body}
             onChange={handleChange}
         />
-        <button className="send-btn" onClick={() => onSendMail(newMail)}>Send</button>
+        {msg && <p className="compose-msg">{msg}</p>}
+        <button className="send-btn" onClick={onSubmit}>Send</button>
     </section>
 }

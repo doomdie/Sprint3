@@ -28,7 +28,9 @@ export function MailDetails() {
     return <section className="mails-details">
         <button onClick={() => navigate('/mail')}>Back</button>
         <h2>{mail.subject}</h2>
-        <p>{mail.from}</p>
+        <p>From: {mail.from}</p>
+        <p>To: {mail.to}</p>
+        <p>Date: {new Date(mail.sentAt).toLocaleDateString()}</p>
         <p>{mail.body}</p>
     </section>
 }

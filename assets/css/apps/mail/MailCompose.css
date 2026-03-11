@@ -85,3 +85,10 @@
     transform: scale(1.02);
     transition: all 0.2s;
 }
+
+.compose-msg {
+    margin: 0.3rem 1rem;
+
+    color: var(--color3);
+    font-size: 0.85rem;
+}
