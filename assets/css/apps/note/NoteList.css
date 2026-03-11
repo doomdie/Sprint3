@@ -1,8 +1,23 @@
 .notes-list ul {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 3em;
-
-    padding: 10;
+    gap: 1.5em;
     list-style: none;
+    padding: 0;
+}
+
+.notes-list li {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 2em; 
+    background-color: var(--clr1bg-light);
+    border-radius: 12px;
+}
+
+.notes-list li img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    transition: 600ms;
 }
