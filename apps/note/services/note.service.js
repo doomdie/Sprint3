@@ -19,7 +19,7 @@ var gNotes = [
         type: 'NoteImg',
         isPinned: false,
         style: { backgroundColor: '#0d0' },
-        info: { url: 'http://some-img/me', title: 'Bobi and Me' }
+        info: { url: 'https://i.ibb.co/8nxFKXNP/egg-do.jpg', title: 'Bobi and Me' }
     },
     {
         id: 'n103',
