@@ -11,13 +11,22 @@ export function MailIndex() {
         loadMails()
     }, [])
 
+
     function loadMails() {
         mailService.query()
             .then(mails => setMails(mails))
     }
 
+    function onToggleRead(mail) {
+        mail.isRead = !mail.isRead
+        mailService.save(mail)
+            .then(() => loadMails())
+    }
+
     return <section className="container">
-        {mails && <MailList mails={mails} />}
+        {/* Toggle read/unread on right-click */}
+        {mails && <MailList mails={mails} onToggleRead={onToggleRead} />}
+
     </section>
 }
 

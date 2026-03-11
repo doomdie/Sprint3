@@ -13,7 +13,13 @@ export function MailDetails() {
 
     useEffect(() => {
         mailService.get(mailId)
-            .then(mail => setMail(mail))
+            .then(mail => {
+                if (!mail.isRead) {
+                    mail.isRead = true
+                    mailService.save(mail)
+                }
+                setMail(mail)
+            })
     }, [mailId])
 
     if (!mail) return <div>Loading...</div>

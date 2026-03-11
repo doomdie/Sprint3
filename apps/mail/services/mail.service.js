@@ -9,6 +9,7 @@ const MAIL_KEY = 'mailDB'
 export const mailService = {
     query,
     get,
+    save,
 }
 
 
@@ -107,4 +108,12 @@ function query() {
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
+}
+
+function save(mail) {
+    if (mail.id) {
+        return storageService.put(MAIL_KEY, mail)
+    } else {
+        return storageService.post(MAIL_KEY, mail)
+    }
 }
