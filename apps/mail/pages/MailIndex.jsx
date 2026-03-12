@@ -38,6 +38,11 @@ export function MailIndex() {
             })
     }
 
+    function onRemoveMail(mailId) {
+        mailService.remove(mailId)
+            .then(() => loadMails())
+    }
+
     const unreadCount = mails ? mails.filter(mail => !mail.isRead).length : 0
 
     if (!mails) return <div>Loading...</div>
@@ -51,6 +56,7 @@ export function MailIndex() {
             <MailList
                 mails={mails}
                 onToggleRead={onToggleRead}
+                onRemoveMail={onRemoveMail}
             />}
 
         {isCompose &&

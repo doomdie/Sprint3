@@ -16,7 +16,11 @@
     --mail-border: #e0e0e0;
     --mail-hover: #eaf1fb;
     --mail-read: #f6f6f6;
+    --mail-unread-bg: var(--white);
+    --mail-read-bg: #f2f6fc;
 
+    --mail-text: #202124;
+    --mail-text-light: #5f6368;
 
     --mail-compose-header: #404040;
     --mail-compose-shadow: rgba(0, 0, 0, 0.2);
