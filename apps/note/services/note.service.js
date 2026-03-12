@@ -1,6 +1,7 @@
 const KEY = 'NOTE_KEY'
 export const noteService = {
     query,
+ 
    
 }
 function query() {

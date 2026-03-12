@@ -9,6 +9,7 @@ const { Link } = ReactRouterDOM
 //         info: { txt: 'Fullstack Me Baby!' }
 //     }, ]
 export function NoteList({notes,  onRemove }) {
+    console.log(notes)
     return <section className='notes-list'>
         <ul>
             {notes.map(note =>
