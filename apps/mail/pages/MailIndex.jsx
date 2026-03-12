@@ -1,4 +1,6 @@
 const { useState, useEffect } = React
+const { Outlet, useParams } = ReactRouterDOM
+
 
 import { MailCompose } from '../cmps/MailCompose.jsx'
 import { MailList } from '../cmps/MailList.jsx'
@@ -8,6 +10,7 @@ import { mailService } from '../services/mail.service.js'
 export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [isCompose, setIsCompose] = useState(false)
+    const params = useParams()
 
     useEffect(() => {
         loadMails()
@@ -52,7 +55,8 @@ export function MailIndex() {
         <h3>Inbox ({unreadCount} unread)</h3>
         <button onClick={() => setIsCompose(true)}>Compose</button>
 
-        {mails &&
+        {params.mailId ? <Outlet /> :
+        mails &&
             <MailList
                 mails={mails}
                 onToggleRead={onToggleRead}
