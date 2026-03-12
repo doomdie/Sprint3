@@ -99,9 +99,29 @@ function _createMails() {
     }
 }
 
-function query() {
+function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
+            if (filterBy.status === 'inbox') {
+                mails = mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt)
+            } else if (filterBy.status === 'starred') {
+                mails = mails.filter(mail => mail.isStarred && !mail.removedAt)
+            } else if (filterBy.status === 'sent') {
+                mails = mails.filter(mail => mail.from === loggedinUser.email && !mail.removedAt)
+            } else if (filterBy.status === 'draft') {
+                mails = mails.filter(mail => !mail.sentAt && !mail.removedAt)
+            } else if (filterBy.status === 'trash') {
+                mails = mails.filter(mail => mail.removedAt)
+            }
+
+            if (filterBy.txt) {
+                const txt = filterBy.txt.toLowerCase()
+                mails = mails.filter(mail =>
+                    mail.subject.toLowerCase().includes(txt) ||
+                    mail.body.toLowerCase().includes(txt)
+                )
+            }
+
             mails.sort((a, b) => b.sentAt - a.sentAt)
             return mails
         })

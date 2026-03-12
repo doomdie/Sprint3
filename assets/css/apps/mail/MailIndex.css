@@ -1,1 +1,16 @@
  /* mail index  */
+
+ .mail-index {
+     display: grid;
+     grid-template-columns: 15rem 1fr;
+     height: 90vh;
+ }
+
+ .mail-sidebar {
+     padding: 1rem;
+     border-right: 1px solid var(--mail-border);
+ }
+
+ .mail-content {
+     overflow-y: auto;
+ }

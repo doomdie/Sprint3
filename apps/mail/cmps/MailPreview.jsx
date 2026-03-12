@@ -15,6 +15,11 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail }) {
         }
     }
 
+    function onToggleReadStatus(ev) {
+        ev.preventDefault()
+        onToggleRead(mail)
+    }
+
 
     return <Link to={`/mail/${mail.id}`} className="mails-preview-link">
         <article
@@ -31,8 +36,12 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail }) {
             <span className="mail-actions">
                 <span className="mail-date">{new Date(mail.sentAt).toLocaleDateString()}</span>
                 <button className="mail-delete-btn" onClick={onDelete}>
-                    <img src="assets/img/delete.svg" alt="delete" />
+                    <img src="assets/img/delete.svg" alt="delete" title="Delete" />
                 </button>
+                <button className="mail-read-btn" onClick={onToggleReadStatus}>
+                    <img src={`assets/img/${mail.isRead ? 'unread' : 'read'}.svg`} alt="toggle read" title={mail.isRead ? 'Mark as unread' : 'Mark as read'} />
+                </button>
+
             </span>
 
         </article>

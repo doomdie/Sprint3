@@ -60,6 +60,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: 0.3rem;
 }
 
 .mail-date {
@@ -77,7 +78,7 @@
     font-weight: bold;
 }
 
-.mail-delete-btn {
+.mail-actions button {
     display: none;
 
     padding: 0.3rem;
@@ -85,28 +86,24 @@
     border: none;
     border-radius: 50%;
 
-    font-size: 0.9rem;
-
     cursor: pointer;
 }
 
-.mail-preview:hover .mail-delete-btn {
+.mail-preview:hover .mail-actions button {
     display: flex;
     align-items: center;
 }
 
-.mail-delete-btn:hover {
+.mail-actions button:hover {
     background-color: var(--mail-border);
 }
 
-.mail-delete-btn img {
+.mail-actions button img {
     display: block;
-
+    
     width: 1.1rem;
     height: 1.1rem;
-    margin: auto;
 }
-
 
 @media (max-width: 768px) {
     .mail-preview {
