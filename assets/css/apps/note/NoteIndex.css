@@ -14,3 +14,7 @@
 .note-index > :first-child {
     margin-bottom: 2em;
 }
+.note-index > .modal-backdrop {
+    max-width: none; 
+    width: 100vw;
+}

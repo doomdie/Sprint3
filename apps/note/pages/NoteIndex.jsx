@@ -39,7 +39,7 @@ export function NoteIndex() {
         setNotes(prevNotes => prevNotes.map(note =>
             note.id === selectedNote.id ? { ...note, info: updatedInfo } : note
         ))
-        setSelectedNote(null) // Closes the modal
+        setSelectedNote(null) 
     }
     function onRemoveNote(noteId) {
         setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
