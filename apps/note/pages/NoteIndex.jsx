@@ -37,11 +37,14 @@ export function NoteIndex() {
     function onRemoveNote(noteId) {
         setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
     }
+    function onEditNote(noteId) {
+        setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
+    }
 
     return (
         <section className="note-index">
             <AddNote onSaveNote={onSaveNote} />
-            <NoteList notes={notes} onRemove={onRemoveNote} />
+            <NoteList notes={notes} onRemove={onRemoveNote} onEdit={onEditNote} />
         </section>
     )
 }

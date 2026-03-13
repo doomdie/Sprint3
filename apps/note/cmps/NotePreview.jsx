@@ -1,4 +1,4 @@
-export function NotePreview({ note, onRemove }) {
+export function NotePreview({ note, onRemove, onEdit }) {
     const { id, type, info, style } = note
 
     return (
@@ -10,6 +10,13 @@ export function NotePreview({ note, onRemove }) {
                 >
                     <i className="fa-regular fa-trash-can"></i>
                 </button>
+                 <button 
+                    onClick={() => onEdit(id)} 
+                    className='close'
+                >
+                    <i className="fa-solid fa-gear"></i>
+                </button>
+                
             </div>
 
             {type === 'NoteTxt' && (
