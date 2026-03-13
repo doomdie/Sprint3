@@ -18,7 +18,7 @@ export function MailIndex() {
 
     useEffect(() => {
         loadMails()
-    }, [filterBy])
+    }, [filterBy, params.mailId])
 
 
     function loadMails() {
@@ -57,8 +57,6 @@ export function MailIndex() {
                 setUnreadCount(inboxMails.filter(mail => !mail.isRead).length)
             })
     }
-
-    // const unreadCount = mails ? mails.filter(mail => !mail.isRead).length : 0
 
     if (!mails) return <div>Loading...</div>
 

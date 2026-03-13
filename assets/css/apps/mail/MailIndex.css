@@ -4,6 +4,10 @@
      display: grid;
      grid-template-columns: 15rem 1fr;
      height: 90vh;
+
+     font-family: var(--font-main);
+     letter-spacing: 0.02rem;
+     line-height: 1.5;
  }
 
  .mail-sidebar {
