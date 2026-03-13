@@ -45,8 +45,9 @@ export function AddNote({ onSaveNote }) {
                     <button type="button" onClick={() => setNoteType('NoteTxt')}>A</button>
                     <button type="button" onClick={() => setNoteType('NoteImg')}>🖼️</button>
                     <button type="button" onClick={() => setNoteType('NoteTodos')}>≡</button>
+                    <button className="add-btn">Add</button>
                 </div>
-                <button>Add</button>
+                {/* <button>Add</button> */}
             </form>
         </section>
     )

@@ -1,6 +1,7 @@
 .notes-list ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 1.5em;
     list-style: none;
     padding: 0;
@@ -13,6 +14,8 @@
     padding: 2em; 
     background-color: var(--clr1bg-light);
     border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
 }
 
 .notes-list li img {
