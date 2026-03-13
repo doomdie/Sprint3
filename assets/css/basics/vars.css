@@ -13,9 +13,11 @@
 
     --white: #fff;
 
+    --mail-blue1: #f6f8fc;
+    --mail-blue2: #c2e7ff;
+    --mail-blue3: #d4e3ff;
+
     --mail-border: #e0e0e0;
-    --mail-hover: #eaf1fb;
-    --mail-read: #f6f6f6;
     --mail-unread-bg: var(--white);
     --mail-read-bg: #f2f6fc;
 
@@ -26,10 +28,6 @@
     --mail-compose-shadow: rgba(0, 0, 0, 0.2);
 
 
-
-
-
-
-
+    /* FONTS */
     --font-main: 'Roboto', sans-serif;
 }

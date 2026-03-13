@@ -5,16 +5,17 @@
      grid-template-columns: 15rem 1fr;
      height: 90vh;
 
+     background-color: var(--mail-blue1);
+
      font-family: var(--font-main);
      letter-spacing: 0.02rem;
-     line-height: 1.5;
+     line-height: 1;
  }
 
- .mail-sidebar {
-     padding: 1rem;
-     border-right: 1px solid var(--mail-border);
- }
+
 
  .mail-content {
      overflow-y: auto;
+     background-color: var(--white);
+     border-radius: 1rem;
  }
