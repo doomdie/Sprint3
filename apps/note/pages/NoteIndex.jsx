@@ -1,12 +1,14 @@
 import { AddNote } from '../cmps/AddNote.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
 import { noteService } from '../services/note.service.js'
+import { EditModal } from '../pages/EditModal.jsx'
+
 
 const { useState, useEffect } = React
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
-
+    const [selectedNote, setSelectedNote] = useState(null)
     useEffect(() => {
         loadNotes()
     }, [])
@@ -22,29 +24,42 @@ export function NoteIndex() {
         let noteToSave = noteData
 
         if (typeof noteData === 'string') {
-            noteToSave = {
+            const noteToSave = {
                 id: 'n' + Date.now(),
-                type: 'NoteTxt',
-                info: { txt: noteData },
+                type: noteData.type || 'NoteTxt',
                 isPinned: false,
-                style: { backgroundColor: '#ffffff' }
+                style: { backgroundColor: '#ffffff' },
+                info: noteData.info
             }
         }
 
         setNotes(prevNotes => [noteToSave, ...prevNotes])
     }
-
+    function onUpdateNote(updatedInfo) {
+        setNotes(prevNotes => prevNotes.map(note =>
+            note.id === selectedNote.id ? { ...note, info: updatedInfo } : note
+        ))
+        setSelectedNote(null) // Closes the modal
+    }
     function onRemoveNote(noteId) {
         setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
     }
     function onEditNote(noteId) {
-        setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
+        const note = notes.find(n => n.id === noteId)
+        setSelectedNote(note)
     }
 
     return (
         <section className="note-index">
             <AddNote onSaveNote={onSaveNote} />
             <NoteList notes={notes} onRemove={onRemoveNote} onEdit={onEditNote} />
+            {selectedNote && (
+                <EditModal 
+                    note={selectedNote} 
+                    onClose={() => setSelectedNote(null)} 
+                    onSave={onUpdateNote} 
+                />
+            )}
         </section>
     )
 }
