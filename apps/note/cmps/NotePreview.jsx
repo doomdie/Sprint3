@@ -1,9 +1,17 @@
-export function NotePreview({ note }) {
-    const { type, info, style } = note
+export function NotePreview({ note, onRemove }) {
+    const { id, type, info, style } = note
 
     return (
         <article className='note-preview' style={style}>
-            
+            <div className="note-actions">
+                <button 
+                    onClick={() => onRemove(id)} 
+                    className='close'
+                >
+                    <i className="fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+
             {type === 'NoteTxt' && (
                 <div className="note-text">
                     <p>{info.txt}</p>
@@ -13,7 +21,7 @@ export function NotePreview({ note }) {
             {type === 'NoteImg' && (
                 <div className="note-img">
                     <h3>{info.title}</h3>
-                    <img src={info.url} alt={info.title} style={{ maxWidth: '100%' }} />
+                    <img src={info.url} alt={info.title} />
                 </div>
             )}
 
@@ -29,7 +37,6 @@ export function NotePreview({ note }) {
                     </ul>
                 </div>
             )}
-
         </article>
     )
 }
