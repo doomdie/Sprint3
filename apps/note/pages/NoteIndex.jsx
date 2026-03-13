@@ -1,5 +1,6 @@
 import { AddNote } from '../cmps/AddNote.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
+import { SideBar } from '../cmps/SideBar.jsx'
 import { noteService } from '../services/note.service.js'
 import { EditModal } from '../pages/EditModal.jsx'
 
@@ -49,10 +50,19 @@ export function NoteIndex() {
         setSelectedNote(note)
     }
 
-    return (
+return (
+    <section className="main-layout">
+        <SideBar />
+
         <section className="note-index">
             <AddNote onSaveNote={onSaveNote} />
-            <NoteList notes={notes} onRemove={onRemoveNote} onEdit={onEditNote} />
+            
+            <NoteList 
+                notes={notes} 
+                onRemove={onRemoveNote} 
+                onEdit={onEditNote} 
+            />
+
             {selectedNote && (
                 <EditModal 
                     note={selectedNote} 
@@ -61,5 +71,7 @@ export function NoteIndex() {
                 />
             )}
         </section>
-    )
+    </section>
+)
+    
 }

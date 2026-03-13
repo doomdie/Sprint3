@@ -12,6 +12,7 @@
 @import './apps/note/NoteIndex.css';
 @import './apps/note/NoteAdd.css';
 @import './apps/note/NoteEditModal.css';
+@import './apps/note/SideBar.css';
 
 @import './apps/note/NotePreview.css';
 
