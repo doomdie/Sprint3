@@ -1,8 +1,25 @@
 .sidebar {
-    width: 280px;
+    width: 150px;
     height: 100%; 
     flex-shrink: 0;
+    flex-direction: column;
     border-right: 1px solid #e0e0e0;
     padding-top: 20px;
     background: white; 
+}
+.nav-item {
+    display: flex;
+    align-items: center;
+    width: 100%; 
+    padding: 12px 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 0 25px 25px 0; 
+    white-space: nowrap; 
+}
+
+.nav-item i {
+    width: 30px; 
+    font-size: 1.2rem;
 }

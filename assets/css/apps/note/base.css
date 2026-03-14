@@ -3,3 +3,6 @@ html, body {
     height: 100vh;
     overflow: hidden; 
 }
+* {
+    box-sizing: border-box;
+}
