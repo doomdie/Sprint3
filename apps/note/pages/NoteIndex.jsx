@@ -52,8 +52,9 @@ export function NoteIndex() {
 
 return (
     <section className="main-layout">
+        <div className="sidebar-container">
         <SideBar />
-
+        </div>
         <section className="note-index">
             <AddNote onSaveNote={onSaveNote} />
             
