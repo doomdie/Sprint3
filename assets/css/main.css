@@ -10,8 +10,12 @@
 @import './apps/note/NoteList.css';
 
 @import './apps/note/NoteIndex.css';
+@import './apps/note/base.css';
+
 @import './apps/note/NoteAdd.css';
 @import './apps/note/NoteEditModal.css';
+@import './apps/note/NoteMainLayout.css';
+
 @import './apps/note/SideBar.css';
 
 @import './apps/note/NotePreview.css';
