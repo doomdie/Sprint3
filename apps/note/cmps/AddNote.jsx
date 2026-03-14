@@ -1,53 +1,100 @@
 const { useState } = React
 
 export function AddNote({ onSaveNote }) {
-    const [noteTxt, setNoteTxt] = useState('')
     const [noteType, setNoteType] = useState('NoteTxt')
+    const [title, setTitle] = useState('')
+    const [txt, setTxt] = useState('')
+    const [todos, setTodos] = useState([{ txt: '', isDone: false }])
+
+    function addTodoRow() {
+        setTodos([...todos, { txt: '', isDone: false }])
+    }
+
+    function handleTodoChange(index, value) {
+        const updatedTodos = [...todos]
+        updatedTodos[index].txt = value
+        setTodos(updatedTodos)
+    }
 
     function onAddNote(ev) {
         ev.preventDefault()
-        if (!noteTxt) return
 
         const note = {
             id: 'n' + Date.now(),
             type: noteType,
             isPinned: false,
             style: { backgroundColor: '#ffffff' },
-            info: {}
+            info: { title }
         }
 
-        if (noteType === 'NoteTxt') {
-            note.info = { txt: noteTxt }
-        } else if (noteType === 'NoteImg') {
-            note.info = { url: noteTxt, title: 'New Image' }
-        } else if (noteType === 'NoteTodos') {
-            note.info = {
-                title: 'My List',
-                todos: noteTxt.split(',').map(txt => ({ txt: txt.trim(), isDone: false }))
-            }
+        if (noteType === 'NoteTxt') note.info.txt = txt
+        if (noteType === 'NoteImg') note.info.url = txt
+        if (noteType === 'NoteTodos') {
+            note.info.todos = todos.filter(todo => todo.txt.trim() !== '')
         }
 
         onSaveNote(note)
-        setNoteTxt('')
+        setTitle('')
+        setTxt('')
+        setTodos([{ txt: '', isDone: false }])
     }
 
     return (
         <section className="add-note">
-            <form onSubmit={onAddNote}>
+            <form onSubmit={onAddNote} className="add-note-form">
                 <input
-                    type="text"
-                    placeholder="Enter content..."
-                    value={noteTxt}
-                    onChange={(ev) => setNoteTxt(ev.target.value)}
+                    className="title-input"
+                    placeholder="Title"
+                    value={title}
+                    onChange={(ev) => setTitle(ev.target.value)}
                 />
 
+                {noteType === 'NoteTxt' && (
+                    <textarea
+                        placeholder="Take a note..."
+                        value={txt}
+                        onChange={(ev) => setTxt(ev.target.value)}
+                    />
+                )}
+
+                {noteType === 'NoteImg' && (
+                    <input
+                        placeholder="Enter image URL..."
+                        value={txt}
+                        onChange={(ev) => setTxt(ev.target.value)}
+                    />
+                )}
+
+                {noteType === 'NoteTodos' && (
+                    <div className="todo-input-list">
+                        {todos.map((todo, idx) => (
+                            <div key={idx} className="todo-row">
+                                <i className="fa-regular fa-square"></i>
+                                <input
+                                    placeholder="List item"
+                                    value={todo.txt}
+                                    onChange={(ev) => handleTodoChange(idx, ev.target.value)}
+                                    onKeyDown={(ev) => {
+                                        if (ev.key === 'Enter') {
+                                            ev.preventDefault()
+                                            addTodoRow()
+                                        }
+                                    }}
+                                />
+                            </div>
+                        ))}
+                        <button type="button" className="add-row-btn" onClick={addTodoRow}>
+                            + List item
+                        </button>
+                    </div>
+                )}
+
                 <div className="note-type-actions">
-                    <button type="button" onClick={() => setNoteType('NoteTxt')}>A</button>
-                    <button type="button" onClick={() => setNoteType('NoteImg')}>🖼️</button>
-                    <button type="button" onClick={() => setNoteType('NoteTodos')}>≡</button>
+                    <button type="button" className={noteType === 'NoteTxt' ? 'active' : ''} onClick={() => setNoteType('NoteTxt')}>A</button>
+                    <button type="button" className={noteType === 'NoteImg' ? 'active' : ''} onClick={() => setNoteType('NoteImg')}>🖼️</button>
+                    <button type="button" className={noteType === 'NoteTodos' ? 'active' : ''} onClick={() => setNoteType('NoteTodos')}>≡</button>
                     <button className="add-btn">Add</button>
                 </div>
-                {/* <button>Add</button> */}
             </form>
         </section>
     )
