@@ -5,7 +5,7 @@ export function AddNote({ onSaveNote }) {
     const [title, setTitle] = useState('')
     const [txt, setTxt] = useState('')
     const [todos, setTodos] = useState([{ txt: '', isDone: false }])
-
+    const [style, setStyle] = useState({ backgroundColor: '#ffffff' })
     function addTodoRow() {
         setTodos([...todos, { txt: '', isDone: false }])
     }
@@ -23,7 +23,7 @@ export function AddNote({ onSaveNote }) {
             id: 'n' + Date.now(),
             type: noteType,
             isPinned: false,
-            style: { backgroundColor: '#ffffff' },
+            style: style,
             info: { title }
         }
 
@@ -90,11 +90,19 @@ export function AddNote({ onSaveNote }) {
                 )}
 
                 <div className="note-type-actions">
-                    <button type="button" className={noteType === 'NoteTxt' ? 'active' : ''} onClick={() => setNoteType('NoteTxt')}>A</button>
-                    <button type="button" className={noteType === 'NoteImg' ? 'active' : ''} onClick={() => setNoteType('NoteImg')}>🖼️</button>
-                    <button type="button" className={noteType === 'NoteTodos' ? 'active' : ''} onClick={() => setNoteType('NoteTodos')}>≡</button>
+                    <button title = "Set note to Text" type="button" className={noteType === 'NoteTxt' ? 'active' : ''} onClick={() => setNoteType('NoteTxt')}>A</button>
+                    <button title = "Set note to Image" type="button" className={noteType === 'NoteImg' ? 'active' : ''} onClick={() => setNoteType('NoteImg')}>🖼️</button>
+                    <button title = "Set Note to List" type="button" className={noteType === 'NoteTodos' ? 'active' : ''} onClick={() => setNoteType('NoteTodos')}>≡</button>
+                    <input 
+        type="color" 
+        className="color-picker-input"
+        title="Choose color"
+        onChange={(ev) => setStyle({ backgroundColor: ev.target.value })} 
+    />
                     <button className="add-btn">Add</button>
                 </div>
+
+
             </form>
         </section>
     )
