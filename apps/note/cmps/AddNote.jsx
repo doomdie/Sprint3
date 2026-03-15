@@ -40,7 +40,7 @@ export function AddNote({ onSaveNote }) {
     }
 
     return (
-        <section className="add-note">
+        <section className="add-note" style = {style}>
             <form onSubmit={onAddNote} className="add-note-form">
                 <input
                     className="title-input"
@@ -51,6 +51,7 @@ export function AddNote({ onSaveNote }) {
 
                 {noteType === 'NoteTxt' && (
                     <textarea
+                        className="note-content"
                         placeholder="Take a note..."
                         value={txt}
                         onChange={(ev) => setTxt(ev.target.value)}

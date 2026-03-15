@@ -3,6 +3,7 @@
     max-width: 600px;
     margin: 20px auto;
     background: #fff;
+    font-family: Arial;
     border-radius: 8px;
     box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
     padding: 10px 15px;
@@ -14,12 +15,15 @@
     gap: 10px;
 }
 
-.add-note input {
+.add-note input, 
+.add-note textarea.note-content {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
     border: none;
     outline: none;
-    font-size: 1rem;
-    padding: 10px 5px;
+    background: transparent;
     width: 100%;
+    padding: 10px 5px;
 }
 
 .add-note .note-type-actions {
@@ -59,3 +63,14 @@
 .add-note .note-type-actions button:hover {
     background-color: rgba(95,99,104,0.1);
 }
+.add-note textarea.note-content {
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 10px 5px;
+    width: 100%;
+}
+.add-note textarea.note-content::placeholder {
+    font-family: Arial;
+    font-size: 1rem;
+} 
