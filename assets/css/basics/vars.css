@@ -27,6 +27,8 @@
     --mail-compose-header: #404040;
     --mail-compose-shadow: rgba(0, 0, 0, 0.2);
 
+    --mail-search-bg: #e1eafa;
+
 
     /* FONTS */
     --font-main: 'Roboto', sans-serif;

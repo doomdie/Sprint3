@@ -3,6 +3,7 @@ const { Outlet, useParams } = ReactRouterDOM
 
 
 import { MailCompose } from '../cmps/MailCompose.jsx'
+import { MailHeader } from '../cmps/MailHeader.jsx'
 import { MailList } from '../cmps/MailList.jsx'
 import { MailSidebar } from '../cmps/MailSidebar.jsx'
 
@@ -60,31 +61,37 @@ export function MailIndex() {
 
     if (!mails) return <div>Loading...</div>
 
-    return <section className="mail-index">
-        <MailSidebar
-            onSetCompose={() => setIsCompose(true)}
-            unreadCount={unreadCount}
-            filterBy={filterBy}
-            onSetFilterBy={setFilterBy}
-        />
+    return <React.Fragment>
+        <MailHeader filterBy={filterBy} onSetFilterBy={setFilterBy} />
 
-        <div className="mail-content">
-            {params.mailId ? <Outlet /> :
-                mails &&
-                <MailList
-                    mails={mails}
-                    onToggleRead={onToggleRead}
-                    onRemoveMail={onRemoveMail}
+        <section className="mail-index">
+
+            <MailSidebar
+                onSetCompose={() => setIsCompose(true)}
+                unreadCount={unreadCount}
+                filterBy={filterBy}
+                onSetFilterBy={setFilterBy}
+            />
+
+            <div className="mail-content">
+                {params.mailId ? <Outlet /> :
+                    mails &&
+                    <MailList
+                        mails={mails}
+                        onToggleRead={onToggleRead}
+                        onRemoveMail={onRemoveMail}
+                    />}
+            </div>
+
+
+            {isCompose &&
+                <MailCompose
+                    onClose={() => setIsCompose(false)}
+                    onSendMail={onSendMail}
                 />}
-        </div>
 
+        </section>
+    </React.Fragment>
 
-        {isCompose &&
-            <MailCompose
-                onClose={() => setIsCompose(false)}
-                onSendMail={onSendMail}
-            />}
-
-    </section>
 }
 

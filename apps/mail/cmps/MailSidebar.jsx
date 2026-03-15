@@ -5,7 +5,10 @@ export function MailSidebar({ onSetCompose, unreadCount, filterBy, onSetFilterBy
     }
 
     return <section className="mail-sidebar">
-        <button className="compose-btn" onClick={onSetCompose}>Compose</button>
+        <button className="compose-btn" onClick={onSetCompose}>
+            <img src="assets/img/edit.svg" alt="compose" />
+            Compose
+        </button>
         <nav className="folder-list">
 
             <div className={`folder ${filterBy.status === 'inbox' ? 'active' : ''}`}

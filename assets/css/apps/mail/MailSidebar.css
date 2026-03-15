@@ -1,6 +1,9 @@
 .mail-sidebar .compose-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 
-    padding: 0.9rem 1.5rem;
+    padding: 1.2rem 1.5rem;
     border: none;
     border-radius: 1rem;
     background-color: var(--mail-blue2);
@@ -16,6 +19,11 @@
 
 .mail-sidebar .compose-btn:hover {
     box-shadow: 0 2px 6px var(--gray1);
+}
+
+.mail-sidebar .compose-btn img {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .folder-list {
