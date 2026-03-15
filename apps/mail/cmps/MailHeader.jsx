@@ -10,6 +10,12 @@ export function MailHeader({ filterBy, onSetFilterBy }) {
         onSetFilterBy(prev => ({ ...prev, txt }))
     }
 
+    function handleReadFilter(ev) {
+        const value = ev.target.value
+        const isRead = value === 'all' ? undefined : value === 'read'
+        onSetFilterBy(prev => ({ ...prev, isRead }))
+    }
+
     function onClearSearch() {
         onSetFilterBy(prev => ({ ...prev, txt: '' }))
     }
@@ -30,6 +36,13 @@ export function MailHeader({ filterBy, onSetFilterBy }) {
                     <img src="assets/img/close.svg" alt="clear" />
                 </button>}
         </div>
+
+        <select className="read-filter" onChange={handleReadFilter}>
+            <option value="all">All</option>
+            <option value="read">Read</option>
+            <option value="unread">Unread</option>
+        </select>
+
         <nav>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/about">About</NavLink>

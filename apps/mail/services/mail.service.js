@@ -123,6 +123,10 @@ function query(filterBy = {}) {
                 )
             }
 
+            if (filterBy.isRead !== undefined) {
+                mails = mails.filter(mail => mail.isRead === filterBy.isRead)
+            }
+
             mails.sort((a, b) => b.sentAt - a.sentAt)
             return mails
         })

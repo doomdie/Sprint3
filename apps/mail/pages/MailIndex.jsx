@@ -13,7 +13,7 @@ import { mailService } from '../services/mail.service.js'
 export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [isCompose, setIsCompose] = useState(false)
-    const [filterBy, setFilterBy] = useState({ status: 'inbox', txt: '' })
+    const [filterBy, setFilterBy] = useState({ status: 'inbox', txt: '', isRead: undefined })
     const [unreadCount, setUnreadCount] = useState(0)
     const params = useParams()
 
