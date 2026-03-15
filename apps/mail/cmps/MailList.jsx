@@ -1,7 +1,7 @@
 import { MailPreview } from './MailPreview.jsx'
 
 
-export function MailList({ mails, onToggleRead, onRemoveMail }) {
+export function MailList({ mails, onToggleRead, onRemoveMail, searchTxt }) {
     return <section className="mails-list">
         <ul>
             {mails.map(mail =>
@@ -10,6 +10,7 @@ export function MailList({ mails, onToggleRead, onRemoveMail }) {
                         mail={mail}
                         onToggleRead={onToggleRead}
                         onRemoveMail={onRemoveMail}
+                        searchTxt={searchTxt}
                     />
                 </li>
             )}

@@ -117,6 +117,7 @@ function query(filterBy = {}) {
             if (filterBy.txt) {
                 const txt = filterBy.txt.toLowerCase()
                 mails = mails.filter(mail =>
+                    mail.from.toLowerCase().includes(txt) ||
                     mail.subject.toLowerCase().includes(txt) ||
                     mail.body.toLowerCase().includes(txt)
                 )

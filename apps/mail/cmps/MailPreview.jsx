@@ -1,7 +1,7 @@
 
 const { Link } = ReactRouterDOM
 
-export function MailPreview({ mail, onToggleRead, onRemoveMail }) {
+export function MailPreview({ mail, onToggleRead, onRemoveMail, searchTxt }) {
 
     function onRightClick(ev) {
         ev.preventDefault()
@@ -20,17 +20,27 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail }) {
         onToggleRead(mail)
     }
 
+    function highlightText(text, searchTxt) {
+        if (!searchTxt) return text
+        const regex = new RegExp(`(${searchTxt})`, 'gi')
+        const parts = text.split(regex)
+        return parts.map((part, i) =>
+            part.toLowerCase() === searchTxt.toLowerCase()
+                ? <span key={i} className="highlight">{part}</span>
+                : part
+        )
+    }
 
     return <Link to={`/mail/${mail.id}`} className="mails-preview-link">
         <article
             className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`}
             onContextMenu={onRightClick}
         >
-            <span className="mail-from">{mail.from}</span>
+            <span className="mail-from">{highlightText(mail.from, searchTxt)}</span>
 
             <span className="mail-subject">
-                {mail.subject}
-                <span className="mail-body-preview"> - {mail.body}</span>
+                <span className="mail-subject-text">{highlightText(mail.subject, searchTxt)}</span>
+                <span className="mail-body-preview"> - {highlightText(mail.body, searchTxt)}</span>
             </span>
 
             <span className="mail-actions">

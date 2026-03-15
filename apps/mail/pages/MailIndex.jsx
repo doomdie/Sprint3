@@ -80,6 +80,7 @@ export function MailIndex() {
                         mails={mails}
                         onToggleRead={onToggleRead}
                         onRemoveMail={onRemoveMail}
+                        searchTxt={filterBy.txt}
                     />}
             </div>
 
