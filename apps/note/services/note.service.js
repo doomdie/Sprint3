@@ -1,12 +1,8 @@
-const KEY = 'NOTE_KEY'
-export const noteService = {
-    query,
- 
-   
-}
-function query() {
-    return Promise.resolve(gNotes)
-}
+import { storageService } from '../../../services/async-storage.service.js'
+import { utilService } from '../../../services/util.service.js'
+
+const STORAGE_KEY = 'notes_db'
+
 var gNotes = [
     {
         id: 'n101',
@@ -14,7 +10,7 @@ var gNotes = [
         isPinned: true,
         style: { backgroundColor: '#00d' },
         info: { txt: 'Fullstack Me Baby!' }
-    }, 
+    },
     {
         id: 'n102',
         type: 'NoteImg',
@@ -35,4 +31,38 @@ var gNotes = [
             ]
         }
     }
-]
+] 
+
+export const noteService = {
+    query,
+    get,
+    remove,
+    save
+}
+
+function query() {
+    return storageService.query(STORAGE_KEY)
+        .then(notes => {
+            if (!notes || !notes.length) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(gNotes))
+                return gNotes
+            }
+            return notes
+        })
+}
+
+function get(noteId) {
+    return storageService.get(STORAGE_KEY, noteId)
+}
+
+function remove(noteId) {
+    return storageService.remove(STORAGE_KEY, noteId)
+}
+
+function save(note) {
+    if (note.id) {
+        return storageService.put(STORAGE_KEY, note)
+    } else {
+        return storageService.post(STORAGE_KEY, note)
+    }
+}
