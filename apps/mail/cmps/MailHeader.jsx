@@ -32,7 +32,7 @@ export function MailHeader({ filterBy, onSetFilterBy }) {
                 onBlur={() => setIsSearchFocus(false)}
             />
             {filterBy.txt &&
-                <button className="search-clear" onClick={onClearSearch}>
+                <button className="search-clear icon-hover-bg" onClick={onClearSearch}>
                     <img src="assets/img/close.svg" alt="clear" />
                 </button>}
         </div>

@@ -98,12 +98,14 @@ export function MailIndex() {
                 {!params.mailId && <div className="sort-buttons">
                     <button onClick={() => onSetSort('sentAt')}>
                         Date
-                        {sortBy.field === 'sentAt' ? (sortBy.dir === 1 ? '↑' : '↓') : ''}
+                        {sortBy.field === 'sentAt' &&
+                            <img src={`assets/img/arrow_${sortBy.dir === 1 ? 'up' : 'down'}_small.svg`} alt="sort" />}
                     </button>
 
                     <button onClick={() => onSetSort('subject')}>
                         Subject
-                        {sortBy.field === 'subject' ? (sortBy.dir === 1 ? '↑' : '↓') : ''}
+                        {sortBy.field === 'subject' &&
+                            <img src={`assets/img/arrow_${sortBy.dir === 1 ? 'up' : 'down'}_small.svg`} alt="sort" />}
                     </button>
                 </div>}
 

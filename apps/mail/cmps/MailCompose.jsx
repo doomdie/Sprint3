@@ -84,7 +84,7 @@ export function MailCompose({ onClose, onSendMail }) {
             {msg && <p className="compose-msg">{msg}</p>}
             <div className="compose-footer">
                 <button className="send-btn" onClick={onSubmit} title="Send">Send</button>
-                <button className="discard-btn" onClick={onClose} title="Discard draft">
+                <button className="discard-btn icon-hover-bg" onClick={onClose} title="Discard draft">
                     <img src="assets/img/delete.svg" alt="discard" />
                 </button>
             </div>

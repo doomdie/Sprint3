@@ -48,19 +48,6 @@
     box-shadow: 0 2px 6px var(--gray1);
 }
 
-.search-clear {
-    background: none;
-    border: none;
-    border-radius: 50%;
-
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.3s;
-}
-
-.search-clear:hover {
-    background-color: var(--mail-border);
-}
 
 .search-clear img {
     display: block;

@@ -146,17 +146,10 @@
 
 .compose-footer .discard-btn {
     padding: 0.3rem;
-    background: none;
-    border: none;
-    border-radius: 50%;
-
-    cursor: pointer;
+   
     user-select: none;
 }
 
-.compose-footer .discard-btn:hover {
-    background-color: var(--mail-border);
-}
 
 .compose-msg {
     margin: 0.3rem 1rem;

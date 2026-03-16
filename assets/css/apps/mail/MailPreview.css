@@ -113,20 +113,11 @@
     display: none;
 
     padding: 0.3rem;
-    background: none;
-    border: none;
-    border-radius: 50%;
-
-    cursor: pointer;
 }
 
 .mail-preview:hover .mail-actions button {
     display: flex;
-    align-items: center;
-}
-
-.mail-actions button:hover {
-    background-color: var(--mail-border);
+    /* align-items: center; */
 }
 
 .mail-actions button img {
