@@ -1,7 +1,7 @@
 
 const { Link } = ReactRouterDOM
 
-export function MailPreview({ mail, onToggleRead, onRemoveMail, searchTxt }) {
+export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, searchTxt }) {
 
     function onRightClick(ev) {
         ev.preventDefault()
@@ -16,6 +16,11 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, searchTxt }) {
     function onToggleReadStatus(ev) {
         ev.preventDefault()
         onToggleRead(mail)
+    }
+
+    function onClickStar(ev) {
+        ev.preventDefault()
+        onToggleStar(mail)
     }
 
     function highlightText(text, searchTxt) {
@@ -44,6 +49,13 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, searchTxt }) {
         <article
             className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`}
             onContextMenu={onRightClick}>
+
+            <button className={`mail-star-btn ${mail.isStarred ? 'starred' : ''}`}
+                onClick={onClickStar}>
+                <img src={`assets/img/${mail.isStarred ? 'star_filled' : 'star'}.svg`}
+                    alt="star"
+                    title={mail.isStarred ? 'Starred' : 'Not starred'} />
+            </button>
 
             <span className="mail-from">{highlightText(mail.from, searchTxt)}</span>
 

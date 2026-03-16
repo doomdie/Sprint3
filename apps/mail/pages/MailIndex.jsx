@@ -35,6 +35,12 @@ export function MailIndex() {
             .then(() => loadMails())
     }
 
+    function onToggleStar(mail) {
+        mail.isStarred = !mail.isStarred
+        mailService.save(mail)
+            .then(() => loadMails())
+    }
+
     function onSendMail(newMail) {
         newMail.from = 'user@appsus.com'
         newMail.isRead = true
@@ -107,6 +113,7 @@ export function MailIndex() {
                         mails={mails}
                         onToggleRead={onToggleRead}
                         onRemoveMail={onRemoveMail}
+                        onToggleStar={onToggleStar}
                         searchTxt={filterBy.txt}
                     />}
             </div>

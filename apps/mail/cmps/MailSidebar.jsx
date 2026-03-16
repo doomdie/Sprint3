@@ -19,7 +19,9 @@ export function MailSidebar({ onSetCompose, unreadCount, filterBy, onSetFilterBy
                 <span className="folder-count">{unreadCount}</span>
             </div>
 
-            <div className="folder" title="Starred">
+            <div className={`folder ${filterBy.status === 'starred' ? 'active' : ''}`}
+                title="Starred"
+                onClick={() => onSelectFolder('starred')}>
                 <img src="assets/img/star.svg" alt="" />
                 <span>Starred</span>
             </div>
