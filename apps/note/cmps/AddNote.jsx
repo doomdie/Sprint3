@@ -40,7 +40,7 @@ export function AddNote({ onSaveNote }) {
     }
 
     return (
-        <section className="add-note" style = {style}>
+        <section className="add-note" style={style}>
             <form onSubmit={onAddNote} className="add-note-form">
                 <input
                     className="title-input"
@@ -91,15 +91,16 @@ export function AddNote({ onSaveNote }) {
                 )}
 
                 <div className="note-type-actions">
-                    <button title = "Set note to Text" type="button" className={noteType === 'NoteTxt' ? 'active' : ''} onClick={() => setNoteType('NoteTxt')}>A</button>
-                    <button title = "Set note to Image" type="button" className={noteType === 'NoteImg' ? 'active' : ''} onClick={() => setNoteType('NoteImg')}>🖼️</button>
-                    <button title = "Set Note to List" type="button" className={noteType === 'NoteTodos' ? 'active' : ''} onClick={() => setNoteType('NoteTodos')}>≡</button>
-                    <input 
-        type="color" 
-        className="color-picker-input"
-        title="Choose color"
-        onChange={(ev) => setStyle({ backgroundColor: ev.target.value })} 
-    />
+                    <button title="Set note to Text" type="button" className={noteType === 'NoteTxt' ? 'active' : ''} onClick={() => setNoteType('NoteTxt')}>A</button>
+                    <button title="Set note to Image" type="button" className={noteType === 'NoteImg' ? 'active' : ''} onClick={() => setNoteType('NoteImg')}>🖼️</button>
+                    <button title="Set Note to List" type="button" className={noteType === 'NoteTodos' ? 'active' : ''} onClick={() => setNoteType('NoteTodos')}>≡</button>
+                    <label className="color-picker-label" title="Choose color">
+                        <input
+                            type="color"
+                            onChange={(ev) => setStyle({ backgroundColor: ev.target.value })}
+                        />
+                        <span className="color-icon">🎨</span>
+                    </label>
                     <button className="add-btn">Add</button>
                 </div>
 
