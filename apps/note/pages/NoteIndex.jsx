@@ -3,11 +3,13 @@ import { NoteList } from '../cmps/NoteList.jsx'
 import { SideBar } from '../cmps/SideBar.jsx'
 import { noteService } from '../services/note.service.js'
 import { EditModal } from '../pages/EditModal.jsx'
+import { NoteHeader } from '../cmps/NoteHeader.jsx'
 
 
 const { useState, useEffect } = React
-
 export function NoteIndex() {
+    const [filterBy, setFilterBy] = useState({ txt: '' })
+
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
     useEffect(() => {
@@ -49,8 +51,12 @@ export function NoteIndex() {
         const note = notes.find(n => n.id === noteId)
         setSelectedNote(note)
     }
-
+const regex = new RegExp(filterBy.txt, 'i')
+    const notesToDisplay = notes.filter(n => regex.test(n.info.title) || regex.test(n.info.txt))
 return (
+    <React.Fragment>
+        <NoteHeader filterBy={filterBy} onSetFilterBy={setFilterBy} />
+
     <section className="main-layout">
         <div className="sidebar-container">
         <SideBar />
@@ -59,7 +65,7 @@ return (
             <AddNote onSaveNote={onSaveNote} />
             
             <NoteList 
-                notes={notes} 
+                notes={notesToDisplay} 
                 onRemove={onRemoveNote} 
                 onEdit={onEditNote} 
             />
@@ -73,6 +79,8 @@ return (
             )}
         </section>
     </section>
+
+    </React.Fragment>
 )
     
 }
