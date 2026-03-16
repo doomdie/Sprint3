@@ -11,6 +11,7 @@ export const mailService = {
     get,
     save,
     remove,
+    moveToTrash,
 }
 
 
@@ -186,4 +187,13 @@ function save(mail) {
 
 function remove(mailId) {
     return storageService.remove(MAIL_KEY, mailId)
+}
+
+function moveToTrash(mailId) {
+    return get(mailId)
+        .then(mail => {
+            mail.removedAt = Date.now()
+            console.log('Moving to trash:', mail.id, 'removedAt:', mail.removedAt)
+            return save(mail)
+        })
 }

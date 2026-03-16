@@ -10,9 +10,7 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, searchTxt }) {
 
     function onDelete(ev) {
         ev.preventDefault()
-        if (confirm('Are you sure you wish to delete this mail?')) {
-            onRemoveMail(mail.id)
-        }
+        onRemoveMail(mail.id)
     }
 
     function onToggleReadStatus(ev) {

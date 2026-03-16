@@ -15,7 +15,7 @@ export function MailIndex() {
     const [isCompose, setIsCompose] = useState(false)
     const [filterBy, setFilterBy] = useState({ status: 'inbox', txt: '', isRead: undefined })
     const [unreadCount, setUnreadCount] = useState(0)
-    const [sortBy, setSortBy] = useState({ field: 'sentAt', dir: -1 })
+    const [sortBy, setSortBy] = useState({ field: 'sentAt', dir: 1 })
     const params = useParams()
 
     useEffect(() => {
@@ -49,8 +49,15 @@ export function MailIndex() {
     }
 
     function onRemoveMail(mailId) {
-        mailService.remove(mailId)
-            .then(() => loadMails())
+        if (filterBy.status === 'trash') {
+            if (!confirm('Are you sure you want to permanently delete this email?')) return
+            mailService.remove(mailId)
+                .then(() => loadMails())
+        } else {
+            if (!confirm('Are you sure you want to move this to Trash?')) return
+            mailService.moveToTrash(mailId)
+                .then(() => loadMails())
+        }
     }
 
     function loadUnreadCount() {
@@ -85,7 +92,7 @@ export function MailIndex() {
                 {!params.mailId && <div className="sort-buttons">
                     <button onClick={() => onSetSort('sentAt')}>
                         Date
-                        {sortBy.field === 'sentAt' ? (sortBy.dir === -1 ? '↓' : '↑') : ''}
+                        {sortBy.field === 'sentAt' ? (sortBy.dir === 1 ? '↑' : '↓') : ''}
                     </button>
 
                     <button onClick={() => onSetSort('subject')}>
