@@ -19,3 +19,28 @@
      background-color: var(--white);
      border-radius: 1rem;
  }
+
+
+ .sort-buttons {
+    display: flex;
+    gap: 0.5rem;
+
+    padding: 0.5rem 1rem;
+}
+
+.sort-buttons button {
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--mail-border);
+    border-radius: 0.3rem;
+    background-color: var(--white);
+
+    font-family: var(--font-main);
+    font-size: 0.8rem;
+    
+    color: var(--gray3);
+    cursor: pointer;
+}
+
+.sort-buttons button:hover {
+    background-color: var(--mail-blue1);
+}

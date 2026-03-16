@@ -99,7 +99,7 @@ function _createMails() {
     }
 }
 
-function query(filterBy = {}) {
+function query(filterBy = {}, sortBy = { field: 'sentAt', dir: -1 }) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
             if (filterBy.status === 'inbox') {
@@ -127,10 +127,17 @@ function query(filterBy = {}) {
                 mails = mails.filter(mail => mail.isRead === filterBy.isRead)
             }
 
-            mails.sort((a, b) => b.sentAt - a.sentAt)
+            mails.sort((a, b) => {
+                if (sortBy.field === 'subject') {
+                    return a.subject.localeCompare(b.subject) * sortBy.dir
+                }
+                return (b.sentAt - a.sentAt) * sortBy.dir
+            })
+
             return mails
         })
 }
+
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)

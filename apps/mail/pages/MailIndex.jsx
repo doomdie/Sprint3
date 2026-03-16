@@ -15,15 +15,16 @@ export function MailIndex() {
     const [isCompose, setIsCompose] = useState(false)
     const [filterBy, setFilterBy] = useState({ status: 'inbox', txt: '', isRead: undefined })
     const [unreadCount, setUnreadCount] = useState(0)
+    const [sortBy, setSortBy] = useState({ field: 'sentAt', dir: -1 })
     const params = useParams()
 
     useEffect(() => {
         loadMails()
-    }, [filterBy, params.mailId])
+    }, [filterBy, params.mailId, sortBy])
 
 
     function loadMails() {
-        mailService.query(filterBy)
+        mailService.query(filterBy, sortBy)
             .then(mails => setMails(mails))
         loadUnreadCount()
     }
@@ -59,6 +60,13 @@ export function MailIndex() {
             })
     }
 
+    function onSetSort(field) {
+        setSortBy(prev => ({
+            field,
+            dir: prev.field === field ? prev.dir * -1 : 1
+        }))
+    }
+
     if (!mails) return <div>Loading...</div>
 
     return <React.Fragment>
@@ -74,6 +82,18 @@ export function MailIndex() {
             />
 
             <div className="mail-content">
+                {!params.mailId && <div className="sort-buttons">
+                    <button onClick={() => onSetSort('sentAt')}>
+                        Date
+                        {sortBy.field === 'sentAt' ? (sortBy.dir === -1 ? '↓' : '↑') : ''}
+                    </button>
+
+                    <button onClick={() => onSetSort('subject')}>
+                        Subject
+                        {sortBy.field === 'subject' ? (sortBy.dir === 1 ? '↑' : '↓') : ''}
+                    </button>
+                </div>}
+
                 {params.mailId ? <Outlet /> :
                     mails &&
                     <MailList
