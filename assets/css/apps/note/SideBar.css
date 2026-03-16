@@ -5,6 +5,7 @@
     flex-shrink: 0;
 }
 .sidebar {
+    position: absolute;
     width: 150px;
     height: 100%; 
     flex-shrink: 0;
@@ -40,4 +41,19 @@
 }
 .sidebar:hover {
     width: 300px;
+}
+.sidebar:hover,
+.sidebar-open .sidebar {
+    width: 300px;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.1); 
+}
+.nav-item span { 
+    opacity: 0;
+    transition: opacity 0.2s;
+    margin-left: 10px;
+}
+
+.sidebar:hover .nav-item span,
+.sidebar-open .sidebar .nav-item span {
+    opacity: 1;
 }

@@ -1,5 +1,5 @@
 const { NavLink } = ReactRouterDOM
-export function NoteHeader({ filterBy, onSetFilterBy }) {
+export function NoteHeader({ filterBy, onSetFilterBy, onToggleSidebar }) {
     function handleSearch(ev) {
         const txt = ev.target.value
         onSetFilterBy(prev => ({ ...prev, txt }))
@@ -8,7 +8,7 @@ export function NoteHeader({ filterBy, onSetFilterBy }) {
     return (
         <header className="note-header">
             <div className="logo-container">
-                <button className="menu-btn" title="Main menu">
+                <button className="menu-btn" onClick={onToggleSidebar}>
                     <span className="material-icons">menu</span>
                 </button>
 

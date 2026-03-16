@@ -8,6 +8,7 @@ import { NoteHeader } from '../cmps/NoteHeader.jsx'
 
 const { useState, useEffect } = React
 export function NoteIndex() {
+    const [isSidebarOpen, setIsSidebarOpen] = React.useState(false)
     const [filterBy, setFilterBy] = useState({ txt: '' })
 
     const [notes, setNotes] = useState([])
@@ -15,7 +16,9 @@ export function NoteIndex() {
     useEffect(() => {
         loadNotes()
     }, [])
-
+    function toggleSidebar() {
+        setIsSidebarOpen(prev => !prev)
+    }
     function loadNotes() {
         noteService.query()
             .then(notesFromService => {
@@ -42,7 +45,7 @@ export function NoteIndex() {
         setNotes(prevNotes => prevNotes.map(note =>
             note.id === selectedNote.id ? { ...note, info: updatedInfo } : note
         ))
-        setSelectedNote(null) 
+        setSelectedNote(null)
     }
     function onRemoveNote(noteId) {
         setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
@@ -51,36 +54,35 @@ export function NoteIndex() {
         const note = notes.find(n => n.id === noteId)
         setSelectedNote(note)
     }
-const regex = new RegExp(filterBy.txt, 'i')
+    const regex = new RegExp(filterBy.txt, 'i')
     const notesToDisplay = notes.filter(n => regex.test(n.info.title) || regex.test(n.info.txt))
-return (
-    <React.Fragment>
-        <NoteHeader filterBy={filterBy} onSetFilterBy={setFilterBy} />
+    return (
+        <React.Fragment>
+            <NoteHeader filterBy={filterBy} onSetFilterBy={setFilterBy} onToggleSidebar={toggleSidebar} />
+                <section className={`main-layout ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+                <div className="sidebar-container">
+                    <SideBar />
+                </div>
+                <section className="note-index">
+                    <AddNote onSaveNote={onSaveNote} />
 
-    <section className="main-layout">
-        <div className="sidebar-container">
-        <SideBar />
-        </div>
-        <section className="note-index">
-            <AddNote onSaveNote={onSaveNote} />
-            
-            <NoteList 
-                notes={notesToDisplay} 
-                onRemove={onRemoveNote} 
-                onEdit={onEditNote} 
-            />
+                    <NoteList
+                        notes={notesToDisplay}
+                        onRemove={onRemoveNote}
+                        onEdit={onEditNote}
+                    />
 
-            {selectedNote && (
-                <EditModal 
-                    note={selectedNote} 
-                    onClose={() => setSelectedNote(null)} 
-                    onSave={onUpdateNote} 
-                />
-            )}
-        </section>
-    </section>
+                    {selectedNote && (
+                        <EditModal
+                            note={selectedNote}
+                            onClose={() => setSelectedNote(null)}
+                            onSave={onUpdateNote}
+                        />
+                    )}
+                </section>
+            </section>
 
-    </React.Fragment>
-)
-    
+        </React.Fragment>
+    )
+
 }
