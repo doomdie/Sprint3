@@ -31,11 +31,22 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, searchTxt }) {
         )
     }
 
+
+    function formatDate(timestamp) {
+        const date = new Date(timestamp)
+        const now = new Date()
+
+        if (date.getFullYear() === now.getFullYear()) {
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+        }
+        return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' })
+    }
+
     return <Link to={`/mail/${mail.id}`} className="mails-preview-link">
         <article
             className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`}
-            onContextMenu={onRightClick}
-        >
+            onContextMenu={onRightClick}>
+
             <span className="mail-from">{highlightText(mail.from, searchTxt)}</span>
 
             <span className="mail-subject">
@@ -44,7 +55,7 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, searchTxt }) {
             </span>
 
             <span className="mail-actions">
-                <span className="mail-date">{new Date(mail.sentAt).toLocaleDateString()}</span>
+                <span className="mail-date">{formatDate(mail.sentAt)}</span>
                 <button className="mail-delete-btn" onClick={onDelete}>
                     <img src="assets/img/delete.svg" alt="delete" title="Delete" />
                 </button>

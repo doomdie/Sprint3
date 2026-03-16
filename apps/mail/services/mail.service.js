@@ -87,6 +87,39 @@ const mails = [
         from: 'security@google.com',
         to: 'user@appsus.com'
     },
+    {
+        id: 'e107',
+        createdAt: 1737388800000,
+        subject: 'Happy New Year!',
+        body: 'Wishing you a wonderful 2026!',
+        isRead: true,
+        sentAt: 1737388800000,
+        removedAt: null,
+        from: 'friend@gmail.com',
+        to: 'user@appsus.com'
+    },
+    {
+        id: 'e108',
+        createdAt: 1740067200000,
+        subject: 'Invoice #4521',
+        body: 'Please find attached your invoice for February',
+        isRead: false,
+        sentAt: 1740067200000,
+        removedAt: null,
+        from: 'billing@company.com',
+        to: 'user@appsus.com'
+    },
+    {
+        id: 'e109',
+        createdAt: 1741881600000,
+        subject: 'Weekend plans?',
+        body: 'Hey are you free this Saturday for dinner?',
+        isRead: false,
+        sentAt: 1741881600000,
+        removedAt: null,
+        from: 'dana@friend.com',
+        to: 'user@appsus.com'
+    },
 ]
 
 _createMails()
