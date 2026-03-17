@@ -37,6 +37,14 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
         )
     }
 
+    function getDisplayName() {
+        if (status === 'draft') return 'Draft'
+        if (status === 'sent') return 'To: ' + mail.to
+        if (status === 'starred' && mail.from === 'user@appsus.com') return 'me'
+        if (status === 'trash' && mail.from === 'user@appsus.com') return 'me'
+        if (status === 'inbox') return mail.from
+        return mail.from
+    }
 
     function formatDate(timestamp) {
         const date = new Date(timestamp)
@@ -47,6 +55,8 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
         }
         return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' })
     }
+
+
 
     return <Link to={`/mail/${mail.id}`} className="mails-preview-link" onClick={onClickMail}>
         <article
@@ -59,7 +69,11 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
                     title={mail.isStarred ? 'Starred' : 'Not starred'} />
             </button>
 
-            <span className="mail-from">{highlightText(mail.from, searchTxt)}</span>
+            <span className="mail-from">
+                {!mail.sentAt 
+                    ? <span className="draft-label">Draft</span>
+                    : highlightText(getDisplayName(), searchTxt)}
+            </span>
 
             <span className="mail-subject">
                 <span className="mail-subject-text">{highlightText(mail.subject, searchTxt)}</span>
@@ -68,7 +82,7 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
 
             <span className="mail-actions">
                 <span className="mail-date">{formatDate(mail.sentAt || mail.createdAt)}</span>
-                
+
                 <button className="mail-delete-btn icon-hover-bg" onClick={onDelete}>
                     <img src="assets/img/delete.svg" alt="delete" title="Delete" />
                 </button>

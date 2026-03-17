@@ -133,7 +133,9 @@
 }
 
 
-
+.draft-label {
+    color: var(--color3)
+}
 
 
 @media (max-width: 768px) {

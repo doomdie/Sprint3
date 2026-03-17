@@ -26,6 +26,7 @@ export function MailIndex() {
 
 
     function loadMails() {
+        setMails(null)
         mailService.query(filterBy, sortBy)
             .then(mails => setMails(mails))
         loadUnreadCount()
@@ -112,7 +113,7 @@ export function MailIndex() {
         setDraftToEdit(null)
     }
 
-    if (!mails) return <div>Loading...</div>
+    // if (!mails) return <div>Loading...</div>
 
     return <React.Fragment>
         <MailHeader filterBy={filterBy} onSetFilterBy={setFilterBy} />
@@ -143,16 +144,16 @@ export function MailIndex() {
                 </div>}
 
                 {params.mailId ? <Outlet /> :
-                    mails &&
-                    <MailList
-                        mails={mails}
-                        onToggleRead={onToggleRead}
-                        onRemoveMail={onRemoveMail}
-                        onToggleStar={onToggleStar}
-                        searchTxt={filterBy.txt}
-                        status={filterBy.status}
-                        onOpenDraft={onOpenDraft}
-                    />}
+                    !mails ? <div className="loading">Loading</div> :
+                        <MailList
+                            mails={mails}
+                            onToggleRead={onToggleRead}
+                            onRemoveMail={onRemoveMail}
+                            onToggleStar={onToggleStar}
+                            searchTxt={filterBy.txt}
+                            status={filterBy.status}
+                            onOpenDraft={onOpenDraft}
+                        />}
             </div>
 
 

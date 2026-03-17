@@ -15,7 +15,7 @@ export function MailSidebar({ onSetCompose, unreadCount, draftCount, filterBy, o
                 title="Inbox"
                 onClick={() => onSelectFolder('inbox')}>
                 <img src={`assets/img/${filterBy.status === 'inbox' ? 'inbox_filled' : 'inbox'}.svg`} alt="" />                <span>Inbox</span>
-                <span className="folder-count">{unreadCount}</span>
+                {unreadCount > 0 && <span className="folder-count">{unreadCount}</span>}
             </div>
 
             <div className={`folder ${filterBy.status === 'starred' ? 'active' : ''}`}
@@ -37,7 +37,7 @@ export function MailSidebar({ onSetCompose, unreadCount, draftCount, filterBy, o
                 onClick={() => onSelectFolder('draft')}>
                 <img src={`assets/img/${filterBy.status === 'draft' ? 'draft_filled' : 'draft'}.svg`} alt="" />
                 <span>Drafts</span>
-                <span className="folder-count">{draftCount}</span>
+                {draftCount > 0 && <span className="folder-count">{draftCount}</span>}
             </div>
 
             <div className={`folder ${filterBy.status === 'trash' ? 'active' : ''}`}
