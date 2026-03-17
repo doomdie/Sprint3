@@ -5,71 +5,103 @@ import { noteService } from '../services/note.service.js'
 import { EditModal } from '../pages/EditModal.jsx'
 import { NoteHeader } from '../cmps/NoteHeader.jsx'
 
-
 const { useState, useEffect } = React
+
 export function NoteIndex() {
-    const [isSidebarOpen, setIsSidebarOpen] = React.useState(false)
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [filterBy, setFilterBy] = useState({ txt: '' })
     const [isGridLayout, setIsGridLayout] = useState(true)
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
+
     useEffect(() => {
         loadNotes()
     }, [])
+
+    function loadNotes() {
+        noteService.query()
+            .then(setNotes)
+            .catch(err => console.error('Failed to load:', err))
+    }
+
     function toggleSidebar() {
         setIsSidebarOpen(prev => !prev)
     }
-    function loadNotes() {
-        noteService.query()
-            .then(notesFromService => {
-                setNotes(notesFromService)
+
+function onSaveNote(noteData) {
+    let noteToSave
+
+    if (typeof noteData === 'string') {
+        noteToSave = {
+            info: { txt: noteData, title: '' },
+            type: 'NoteTxt',
+            isPinned: false,
+            style: { backgroundColor: '#ffffff' }
+        }
+    } else {
+        const { id, ...rest } = noteData 
+        noteToSave = {
+            ...rest,
+            isPinned: rest.isPinned || false,
+            style: rest.style || { backgroundColor: '#ffffff' }
+        }
+    }
+
+    noteService.save(noteToSave)
+        .then(savedNote => {
+            setNotes(prevNotes => [savedNote, ...prevNotes])
+        })
+        .catch(err => {
+            console.error('Check if your noteData accidentally had an ID:', err)
+        })
+}
+
+    function onUpdateNote(updatedInfo) {
+        const noteToUpdate = { ...selectedNote, info: updatedInfo }
+        noteService.save(noteToUpdate)
+            .then(savedNote => {
+                setNotes(prevNotes => prevNotes.map(note =>
+                    note.id === savedNote.id ? savedNote : note
+                ))
+                setSelectedNote(null)
             })
     }
 
-    function onSaveNote(noteData) {
-        let noteToSave = noteData
-
-        if (typeof noteData === 'string') {
-            const noteToSave = {
-                id: 'n' + Date.now(),
-                type: noteData.type || 'NoteTxt',
-                isPinned: false,
-                style: { backgroundColor: '#ffffff' },
-                info: noteData.info
-            }
-        }
-
-        setNotes(prevNotes => [noteToSave, ...prevNotes])
-    }
-    function onUpdateNote(updatedInfo) {
-        setNotes(prevNotes => prevNotes.map(note =>
-            note.id === selectedNote.id ? { ...note, info: updatedInfo } : note
-        ))
-        setSelectedNote(null)
-    }
     function onRemoveNote(noteId) {
-        setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
+        noteService.remove(noteId)
+            .then(() => {
+                setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
+            })
     }
+
     function onEditNote(noteId) {
         const note = notes.find(n => n.id === noteId)
         setSelectedNote(note)
     }
+
     const regex = new RegExp(filterBy.txt, 'i')
     const notesToDisplay = notes.filter(n => regex.test(n.info.title) || regex.test(n.info.txt))
+
     return (
         <React.Fragment>
-            <NoteHeader filterBy={filterBy} onSetFilterBy={setFilterBy} onToggleSidebar={toggleSidebar} />
+            <NoteHeader 
+                filterBy={filterBy} 
+                onSetFilterBy={setFilterBy} 
+                onToggleSidebar={toggleSidebar} 
+            />
+            
             <button 
                 className="layout-toggle-btn" 
                 onClick={() => setIsGridLayout(!isGridLayout)}
             >
                 {isGridLayout ? 'Switch to List' : 'Switch to Grid'}
             </button>
-                <section className={`gain-layout ${isSidebarOpen ? 'sidebar-open' : ''}`}>
-                    
+
+            <section className={`gain-layout ${isSidebarOpen ? 'sidebar-open' : ''}`}>
                 <div className="sidebar-container">
                     <SideBar />
                 </div>
+
                 <section className={isGridLayout ? 'bote-index' : 'note-index'}>
                     <AddNote onSaveNote={onSaveNote} />
 
@@ -88,8 +120,6 @@ export function NoteIndex() {
                     )}
                 </section>
             </section>
-
         </React.Fragment>
     )
-
 }
