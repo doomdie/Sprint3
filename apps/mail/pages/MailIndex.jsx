@@ -15,6 +15,7 @@ export function MailIndex() {
     const [isCompose, setIsCompose] = useState(false)
     const [filterBy, setFilterBy] = useState({ status: 'inbox', txt: '', isRead: undefined })
     const [unreadCount, setUnreadCount] = useState(0)
+    const [draftCount, setDraftCount] = useState(0)
     const [sortBy, setSortBy] = useState({ field: 'sentAt', dir: 1 })
     const [draftToEdit, setDraftToEdit] = useState(null)
     const params = useParams()
@@ -28,6 +29,7 @@ export function MailIndex() {
         mailService.query(filterBy, sortBy)
             .then(mails => setMails(mails))
         loadUnreadCount()
+        loadDraftCount()
     }
 
     function onToggleRead(mail) {
@@ -75,6 +77,13 @@ export function MailIndex() {
             })
     }
 
+    function loadDraftCount() {
+        mailService.query({ status: 'draft', txt: '' })
+            .then(draftMails => {
+                setDraftCount(draftMails.length)
+            })
+    }
+
     function onSetSort(field) {
         setSortBy(prev => ({
             field,
@@ -113,6 +122,7 @@ export function MailIndex() {
             <MailSidebar
                 onSetCompose={() => setIsCompose(true)}
                 unreadCount={unreadCount}
+                draftCount={draftCount}
                 filterBy={filterBy}
                 onSetFilterBy={setFilterBy}
             />
@@ -151,6 +161,7 @@ export function MailIndex() {
                     onClose={onCloseDraft}
                     onSendMail={onSendMail}
                     draft={draftToEdit}
+                    onLoadMails={loadMails}
                 />}
 
         </section>

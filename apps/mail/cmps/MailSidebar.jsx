@@ -1,5 +1,5 @@
 
-export function MailSidebar({ onSetCompose, unreadCount, filterBy, onSetFilterBy }) {
+export function MailSidebar({ onSetCompose, unreadCount, draftCount, filterBy, onSetFilterBy }) {
     function onSelectFolder(status) {
         onSetFilterBy(prev => ({ ...prev, status }))
     }
@@ -38,6 +38,7 @@ export function MailSidebar({ onSetCompose, unreadCount, filterBy, onSetFilterBy
                 onClick={() => onSelectFolder('draft')}>
                 <img src="assets/img/draft.svg" alt="" />
                 <span>Drafts</span>
+                <span className="folder-count">{draftCount}</span>
             </div>
 
             <div className={`folder ${filterBy.status === 'trash' ? 'active' : ''}`}

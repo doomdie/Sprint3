@@ -2,7 +2,7 @@ const { useState } = React
 
 import { mailService } from '../services/mail.service.js'
 
-export function MailCompose({ onClose, onSendMail, draft }) {
+export function MailCompose({ onClose, onSendMail, draft, onLoadMails }) {
 
     const [newMail, setNewMail] = useState(draft || {
         to: '',
@@ -13,13 +13,14 @@ export function MailCompose({ onClose, onSendMail, draft }) {
     const [isFocusTo, setIsFocusTo] = useState(false)
     const [isMinimized, setIsMinimized] = useState(false)
     const [headerTitle, setHeaderTitle] = useState(draft ? (draft.subject || 'New Message') : 'New Message')
-
+    const [isDirty, setIsDirty] = useState(false)
 
 
 
     function handleChange(ev) {
         const { name, value } = ev.target
         setNewMail(prev => ({ ...prev, [name]: value }))
+        setIsDirty(true)
     }
 
     function onSubmit() {
@@ -50,6 +51,30 @@ export function MailCompose({ onClose, onSendMail, draft }) {
         }
     }
 
+    function saveDraft() {
+        if (!isDirty) return
+        if (!newMail.to && !newMail.subject && !newMail.body) return
+
+        const draftToSave = { ...newMail }
+
+        draftToSave.from = 'user@appsus.com'
+        draftToSave.isRead = true
+        draftToSave.sentAt = null
+        draftToSave.removedAt = null
+        if (!draftToSave.createdAt) draftToSave.createdAt = Date.now()
+
+        mailService.save(draftToSave)
+            .then(saved => {
+                if (!newMail.id) {
+                    setNewMail(prev => ({ ...prev, id: saved.id }))
+                }
+                setHeaderTitle('Draft saved')
+                setTimeout(() => setHeaderTitle(newMail.subject || 'New Message'), 3000)
+                setIsDirty(false)
+                onLoadMails()
+            })
+    }
+
     return <section className={`mail-compose ${isMinimized ? 'minimized' : ''}`}>
         <h3 onClick={onToggleMinimize}>
             {headerTitle}
@@ -75,7 +100,7 @@ export function MailCompose({ onClose, onSendMail, draft }) {
                     value={newMail.to}
                     onChange={handleChange}
                     onFocus={() => setIsFocusTo(true)}
-                    onBlur={() => setIsFocusTo(false)}
+                    onBlur={() => { setIsFocusTo(false); saveDraft() }}
                 />
             </div>
             <input
@@ -84,15 +109,16 @@ export function MailCompose({ onClose, onSendMail, draft }) {
                 placeholder="Subject"
                 value={newMail.subject}
                 onChange={handleChange}
-                onBlur={() => setHeaderTitle(newMail.subject || 'New Message')}
+                onBlur={() => { setIsFocusTo(false); saveDraft() }}
             />
             <textarea
                 name="body"
                 placeholder="Write your message..."
                 value={newMail.body}
                 onChange={handleChange}
+                onBlur={saveDraft}
             />
-            
+
             {msg && <p className="compose-msg">{msg}</p>}
 
             <div className="compose-footer">
