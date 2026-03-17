@@ -16,6 +16,7 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState({ status: 'inbox', txt: '', isRead: undefined })
     const [unreadCount, setUnreadCount] = useState(0)
     const [sortBy, setSortBy] = useState({ field: 'sentAt', dir: 1 })
+    const [draftToEdit, setDraftToEdit] = useState(null)
     const params = useParams()
 
     useEffect(() => {
@@ -50,6 +51,7 @@ export function MailIndex() {
         mailService.save(newMail)
             .then(() => {
                 setIsCompose(false)
+                setDraftToEdit(null)
                 loadMails()
             })
     }
@@ -78,6 +80,26 @@ export function MailIndex() {
             field,
             dir: prev.field === field ? prev.dir * -1 : 1
         }))
+    }
+
+    function onOpenDraft(mail) {
+        setDraftToEdit(mail)
+        setIsCompose(true)
+    }
+
+    function onCloseDraft(draft) {
+        if (draft && (draft.to || draft.subject || draft.body)) {
+            draft.from = 'user@appsus.com'
+            draft.isRead = true
+            draft.sentAt = null
+            draft.removedAt = null
+            if (!draft.createdAt) draft.createdAt = Date.now()
+            mailService.save(draft)
+                .then(() => loadMails())
+        }
+        setIsCompose(false)
+        setDraftToEdit(null)
+
     }
 
     if (!mails) return <div>Loading...</div>
@@ -117,14 +139,17 @@ export function MailIndex() {
                         onRemoveMail={onRemoveMail}
                         onToggleStar={onToggleStar}
                         searchTxt={filterBy.txt}
+                        status={filterBy.status}
+                        onOpenDraft={onOpenDraft}
                     />}
             </div>
 
 
             {isCompose &&
                 <MailCompose
-                    onClose={() => setIsCompose(false)}
+                    onClose={onCloseDraft}
                     onSendMail={onSendMail}
+                    draft={draftToEdit}
                 />}
 
         </section>

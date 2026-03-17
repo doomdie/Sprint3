@@ -141,7 +141,7 @@ function query(filterBy = {}, sortBy = { field: 'sentAt', dir: -1 }) {
             } else if (filterBy.status === 'starred') {
                 mails = mails.filter(mail => mail.isStarred && !mail.removedAt)
             } else if (filterBy.status === 'sent') {
-                mails = mails.filter(mail => mail.from === loggedinUser.email && !mail.removedAt)
+                mails = mails.filter(mail => mail.from === loggedinUser.email && mail.sentAt && !mail.removedAt)
             } else if (filterBy.status === 'draft') {
                 mails = mails.filter(mail => !mail.sentAt && !mail.removedAt)
             } else if (filterBy.status === 'trash') {
@@ -165,7 +165,9 @@ function query(filterBy = {}, sortBy = { field: 'sentAt', dir: -1 }) {
                 if (sortBy.field === 'subject') {
                     return a.subject.localeCompare(b.subject) * sortBy.dir
                 }
-                return (b.sentAt - a.sentAt) * sortBy.dir
+                const dateA = a.sentAt || a.createdAt
+                const dateB = b.sentAt || b.createdAt
+                return (dateB - dateA) * sortBy.dir
             })
 
             return mails

@@ -1,12 +1,8 @@
 
 const { Link } = ReactRouterDOM
 
-export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, searchTxt }) {
+export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, searchTxt, status, onOpenDraft }) {
 
-    function onRightClick(ev) {
-        ev.preventDefault()
-        onToggleRead(mail)
-    }
 
     function onDelete(ev) {
         ev.preventDefault()
@@ -21,6 +17,13 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
     function onClickStar(ev) {
         ev.preventDefault()
         onToggleStar(mail)
+    }
+
+    function onClickMail(ev) {
+        if (status === 'draft') {
+            ev.preventDefault()
+            onOpenDraft(mail)
+        }
     }
 
     function highlightText(text, searchTxt) {
@@ -45,10 +48,9 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
         return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' })
     }
 
-    return <Link to={`/mail/${mail.id}`} className="mails-preview-link">
+    return <Link to={`/mail/${mail.id}`} className="mails-preview-link" onClick={onClickMail}>
         <article
-            className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`}
-            onContextMenu={onRightClick}>
+            className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`}>
 
             <button className={`mail-star-btn ${mail.isStarred ? 'starred' : ''}`}
                 onClick={onClickStar}>
@@ -65,7 +67,7 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
             </span>
 
             <span className="mail-actions">
-                <span className="mail-date">{formatDate(mail.sentAt)}</span>
+                <span className="mail-date">{formatDate(mail.sentAt || mail.createdAt)}</span>
                 <button className="mail-delete-btn icon-hover-bg" onClick={onDelete}>
                     <img src="assets/img/delete.svg" alt="delete" title="Delete" />
                 </button>

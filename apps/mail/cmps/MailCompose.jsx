@@ -1,8 +1,10 @@
 const { useState } = React
 
-export function MailCompose({ onClose, onSendMail }) {
+import { mailService } from '../services/mail.service.js'
 
-    const [newMail, setNewMail] = useState({
+export function MailCompose({ onClose, onSendMail, draft }) {
+
+    const [newMail, setNewMail] = useState(draft || {
         to: '',
         subject: '',
         body: ''
@@ -10,7 +12,7 @@ export function MailCompose({ onClose, onSendMail }) {
     const [msg, setMsg] = useState('')
     const [isFocusTo, setIsFocusTo] = useState(false)
     const [isMinimized, setIsMinimized] = useState(false)
-    const [headerTitle, setHeaderTitle] = useState('New Message')
+    const [headerTitle, setHeaderTitle] = useState(draft ? (draft.subject || 'New Message') : 'New Message')
 
 
 
@@ -39,6 +41,13 @@ export function MailCompose({ onClose, onSendMail }) {
         onToggleMinimize()
     }
 
+    function onDiscard() {
+        if (draft && draft.id) {
+            mailService.remove(draft.id)
+        }
+        onClose(null)
+    }
+
     return <section className={`mail-compose ${isMinimized ? 'minimized' : ''}`}>
         <h3 onClick={onToggleMinimize}>
             {headerTitle}
@@ -48,7 +57,7 @@ export function MailCompose({ onClose, onSendMail }) {
                     onClick={onClickMinimizeBtn}>
                     <img src="assets/img/minimize.svg" alt="minimize" />
                 </button>
-                <button className="header-btn" onClick={onClose} title="Close">
+                <button className="header-btn" onClick={() => onClose(newMail)} title="Close">
                     <img src="assets/img/close_small.svg" alt="close" />
                 </button>
             </div>
@@ -84,7 +93,7 @@ export function MailCompose({ onClose, onSendMail }) {
             {msg && <p className="compose-msg">{msg}</p>}
             <div className="compose-footer">
                 <button className="send-btn" onClick={onSubmit} title="Send">Send</button>
-                <button className="discard-btn icon-hover-bg" onClick={onClose} title="Discard draft">
+                <button className="discard-btn icon-hover-bg" onClick={onDiscard} title="Discard draft">
                     <img src="assets/img/delete.svg" alt="discard" />
                 </button>
             </div>
