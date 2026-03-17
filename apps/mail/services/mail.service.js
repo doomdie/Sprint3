@@ -121,6 +121,61 @@ const mails = [
         from: 'dana@friend.com',
         to: 'user@appsus.com'
     },
+    {
+        id: 'e110',
+        createdAt: 1769040000000,
+        subject: 'Welcome back to work!',
+        body: 'Hope you had a great holiday. Team meeting at 2pm today.',
+        isRead: true,
+        sentAt: 1769040000000,
+        removedAt: null,
+        from: 'hr@company.com',
+        to: 'user@appsus.com'
+    },
+    {
+        id: 'e111',
+        createdAt: 1771718400000,
+        subject: 'Your February bank statement',
+        body: 'Your monthly statement is ready to view online',
+        isRead: false,
+        sentAt: 1771718400000,
+        removedAt: null,
+        from: 'bank@mybank.com',
+        to: 'user@appsus.com'
+    },
+    {
+        id: 'e112',
+        createdAt: 1773532800000,
+        subject: 'Dinner Saturday?',
+        body: 'Want to grab sushi this weekend?',
+        isRead: false,
+        sentAt: 1773532800000,
+        removedAt: null,
+        from: 'dana@friend.com',
+        to: 'user@appsus.com'
+    },
+    {
+        id: 'e113',
+        createdAt: 1773619200000,
+        subject: 'Sprint review tomorrow',
+        body: 'Reminder: sprint review at 10am. Please prepare your demo.',
+        isRead: false,
+        sentAt: 1773619200000,
+        removedAt: null,
+        from: 'boss@work.com',
+        to: 'user@appsus.com'
+    },
+    {
+        id: 'e114',
+        createdAt: 1770422400000,
+        subject: 'Check out this article',
+        body: 'Found this great article about React hooks, thought you might like it',
+        isRead: true,
+        sentAt: 1770422400000,
+        removedAt: null,
+        from: 'user@appsus.com',
+        to: 'friend@gmail.com'
+    },
 ]
 
 _createMails()

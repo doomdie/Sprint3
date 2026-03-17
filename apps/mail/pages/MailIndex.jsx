@@ -96,10 +96,11 @@ export function MailIndex() {
             if (!draft.createdAt) draft.createdAt = Date.now()
             mailService.save(draft)
                 .then(() => loadMails())
+        } else {
+            loadMails()
         }
         setIsCompose(false)
         setDraftToEdit(null)
-
     }
 
     if (!mails) return <div>Loading...</div>

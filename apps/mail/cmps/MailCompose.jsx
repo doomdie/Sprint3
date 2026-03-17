@@ -44,8 +44,10 @@ export function MailCompose({ onClose, onSendMail, draft }) {
     function onDiscard() {
         if (draft && draft.id) {
             mailService.remove(draft.id)
+                .then(() => onClose(null))
+        } else {
+            onClose(null)
         }
-        onClose(null)
     }
 
     return <section className={`mail-compose ${isMinimized ? 'minimized' : ''}`}>
@@ -90,9 +92,12 @@ export function MailCompose({ onClose, onSendMail, draft }) {
                 value={newMail.body}
                 onChange={handleChange}
             />
+            
             {msg && <p className="compose-msg">{msg}</p>}
+
             <div className="compose-footer">
                 <button className="send-btn" onClick={onSubmit} title="Send">Send</button>
+
                 <button className="discard-btn icon-hover-bg" onClick={onDiscard} title="Discard draft">
                     <img src="assets/img/delete.svg" alt="discard" />
                 </button>

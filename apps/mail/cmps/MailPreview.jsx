@@ -68,13 +68,14 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
 
             <span className="mail-actions">
                 <span className="mail-date">{formatDate(mail.sentAt || mail.createdAt)}</span>
+                
                 <button className="mail-delete-btn icon-hover-bg" onClick={onDelete}>
                     <img src="assets/img/delete.svg" alt="delete" title="Delete" />
                 </button>
+
                 <button className="mail-read-btn icon-hover-bg" onClick={onToggleReadStatus}>
                     <img src={`assets/img/${mail.isRead ? 'unread' : 'read'}.svg`} alt="toggle read" title={mail.isRead ? 'Mark as unread' : 'Mark as read'} />
                 </button>
-
             </span>
 
         </article>
