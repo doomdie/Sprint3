@@ -1,5 +1,5 @@
 const { useState, useEffect } = React
-const { Outlet, useParams } = ReactRouterDOM
+const { Outlet, useParams, useNavigate } = ReactRouterDOM
 
 
 import { MailCompose } from '../cmps/MailCompose.jsx'
@@ -19,6 +19,7 @@ export function MailIndex() {
     const [sortBy, setSortBy] = useState({ field: 'sentAt', dir: 1 })
     const [draftToEdit, setDraftToEdit] = useState(null)
     const params = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadMails()
@@ -26,7 +27,6 @@ export function MailIndex() {
 
 
     function loadMails() {
-        setMails(null)
         mailService.query(filterBy, sortBy)
             .then(mails => setMails(mails))
         loadUnreadCount()
@@ -113,6 +113,12 @@ export function MailIndex() {
         setDraftToEdit(null)
     }
 
+    function onChangeFilter(newFilter) {
+        if (params.mailId) navigate('/mail')
+        setMails(null)
+        setFilterBy(newFilter)
+    }
+
     // if (!mails) return <div>Loading...</div>
 
     return <React.Fragment>
@@ -125,7 +131,7 @@ export function MailIndex() {
                 unreadCount={unreadCount}
                 draftCount={draftCount}
                 filterBy={filterBy}
-                onSetFilterBy={setFilterBy}
+                onSetFilterBy={onChangeFilter}
             />
 
             <div className="mail-content">

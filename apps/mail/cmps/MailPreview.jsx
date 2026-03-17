@@ -6,16 +6,19 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
 
     function onDelete(ev) {
         ev.preventDefault()
+        ev.stopPropagation()
         onRemoveMail(mail.id)
     }
 
     function onToggleReadStatus(ev) {
         ev.preventDefault()
+        ev.stopPropagation()
         onToggleRead(mail)
     }
 
     function onClickStar(ev) {
         ev.preventDefault()
+        ev.stopPropagation()
         onToggleStar(mail)
     }
 
@@ -70,7 +73,7 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
             </button>
 
             <span className="mail-from">
-                {!mail.sentAt 
+                {!mail.sentAt
                     ? <span className="draft-label">Draft</span>
                     : highlightText(getDisplayName(), searchTxt)}
             </span>
