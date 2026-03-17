@@ -89,3 +89,7 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
+.bote-index, .note-index {
+    flex-grow: 1;
+    transition: all 0.2s ease-in-out;
+}

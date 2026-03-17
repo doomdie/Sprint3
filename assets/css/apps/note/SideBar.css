@@ -1,19 +1,26 @@
 .sidebar-container {
-    position: relative;
     width: 70px; 
     height: 100vh;
     flex-shrink: 0;
-}
-.sidebar {
-    position: absolute;
-    width: 150px;
-    height: 100%; 
-    flex-shrink: 0;
     transition: width 0.2s ease-in-out;
+    background: white;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.sidebar-container:hover,
+.sidebar-open .sidebar-container {
+    width: 300px;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+}
+
+.sidebar {
+    display: flex;
     flex-direction: column;
-    border-right: 1px solid #e0e0e0;
+    width: 100%; 
+    height: 100%;
     padding-top: 20px;
-    background: white; 
+    background: inherit;
 }
 
 .nav-item {
@@ -31,29 +38,16 @@
 .nav-item i {
     width: 30px; 
     font-size: 1.2rem;
+    flex-shrink: 0;
 }
-.nav-item span { 
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-.sidebar:hover .nav-item span {
-    opacity: 1;
-}
-.sidebar:hover {
-    width: 300px;
-}
-.sidebar:hover,
-.sidebar-open .sidebar {
-    width: 300px;
-    box-shadow: 5px 0 15px rgba(0,0,0,0.1); 
-}
+
 .nav-item span { 
     opacity: 0;
     transition: opacity 0.2s;
     margin-left: 10px;
 }
 
-.sidebar:hover .nav-item span,
-.sidebar-open .sidebar .nav-item span {
+.sidebar-container:hover .nav-item span,
+.sidebar-open .sidebar-container .nav-item span {
     opacity: 1;
 }
