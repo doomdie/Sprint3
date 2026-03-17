@@ -10,7 +10,7 @@ const { useState, useEffect } = React
 export function NoteIndex() {
     const [isSidebarOpen, setIsSidebarOpen] = React.useState(false)
     const [filterBy, setFilterBy] = useState({ txt: '' })
-
+    const [isGridLayout, setIsGridLayout] = useState(true)
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
     useEffect(() => {
@@ -59,11 +59,18 @@ export function NoteIndex() {
     return (
         <React.Fragment>
             <NoteHeader filterBy={filterBy} onSetFilterBy={setFilterBy} onToggleSidebar={toggleSidebar} />
-                <section className={`main-layout ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+            <button 
+                className="layout-toggle-btn" 
+                onClick={() => setIsGridLayout(!isGridLayout)}
+            >
+                {isGridLayout ? 'Switch to List' : 'Switch to Grid'}
+            </button>
+                <section className={`gain-layout ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+                    
                 <div className="sidebar-container">
                     <SideBar />
                 </div>
-                <section className="note-index">
+                <section className={isGridLayout ? 'bote-index' : 'note-index'}>
                     <AddNote onSaveNote={onSaveNote} />
 
                     <NoteList
