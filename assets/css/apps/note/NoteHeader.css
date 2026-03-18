@@ -129,3 +129,29 @@
     width: 18px; 
     height: auto;
 }
+.layout-toggle-btn {
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #5f6368;
+    transition: background-color 0.2s, color 0.2s;
+    padding: 0;
+    margin-left: 8px;
+}
+
+.layout-toggle-btn:hover {
+    background-color: rgba(60, 64, 67, 0.08);
+    color: #202124;
+}
+
+.layout-toggle-btn svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}

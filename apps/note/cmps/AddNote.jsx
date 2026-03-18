@@ -16,6 +16,10 @@ export function AddNote({ onSaveNote }) {
         updatedTodos[index].txt = value
         setTodos(updatedTodos)
     }
+    function changeNoteType(type) {
+        setNoteType(type)
+        setIsExpanded(true)
+    }
     useEffect(() => {
         function handleClickOutside(ev) {
             if (!isExpanded) return
@@ -31,40 +35,37 @@ export function AddNote({ onSaveNote }) {
         }
     }, [isExpanded, title, txt, todos, noteType])
     function onAddNote(ev) {
-        ev.preventDefault()
+        if (ev) ev.preventDefault() 
+
         const hasTitle = title.trim().length > 0
         const hasTxt = txt.trim().length > 0
         const hasValidTodos = noteType === 'NoteTodos' && todos.some(todo => todo.txt.trim() !== '')
-       if (!hasTitle && !hasTxt && !hasValidTodos) {
+
+        if (hasTitle || hasTxt || hasValidTodos) {
+            const note = {
+                id: 'n' + Date.now(),
+                type: noteType,
+                isPinned: false,
+                style: style,
+                info: { title }
+            }
+
+            if (noteType === 'NoteTxt') note.info.txt = txt
+            if (noteType === 'NoteImg') note.info.url = txt
+            if (noteType === 'NoteTodos') {
+                note.info.todos = todos.filter(todo => todo.txt.trim() !== '')
+            }
+
+            onSaveNote(note)
+        }
+
         setIsExpanded(false)
-        resetForm() 
-        return 
-    }
-        const note = {
-            id: 'n' + Date.now(),
-            type: noteType,
-            isPinned: false,
-            style: style,
-            info: { title }
-        }
-
-        if (noteType === 'NoteTxt') note.info.txt = txt
-        if (noteType === 'NoteImg') note.info.url = txt
-        if (noteType === 'NoteTodos') {
-            note.info.todos = todos.filter(todo => todo.txt.trim() !== '')
-        }
-
-        onSaveNote(note)
+        setNoteType('NoteTxt') 
         setTitle('')
         setTxt('')
         setTodos([{ txt: '', isDone: false }])
+        setStyle({ backgroundColor: '#ffffff' })
     }
-    function resetForm() {
-    setTitle('')
-    setTxt('')
-    setTodos([{ txt: '', isDone: false }])
-    setStyle({ backgroundColor: '#ffffff' })
-}
 
     return (
         <section ref={noteRef} className="add-note" style={style}>
@@ -122,17 +123,51 @@ export function AddNote({ onSaveNote }) {
                 )}
 
                 <div className="note-type-actions">
-                    <button title="Set note to Text" type="button" className={noteType === 'NoteTxt' ? 'active' : ''} onClick={() => setNoteType('NoteTxt')}>A</button>
-                    <button title="Set note to Image" type="button" className={noteType === 'NoteImg' ? 'active' : ''} onClick={() => setNoteType('NoteImg')}>🖼️</button>
-                    <button title="Set Note to List" type="button" className={noteType === 'NoteTodos' ? 'active' : ''} onClick={() => setNoteType('NoteTodos')}>≡</button>
-                    <label className="color-picker-label" title="Choose color">
+                    <button
+                        type="button"
+                        className={noteType === 'NoteTxt' ? 'active' : ''}
+                        onClick={() => {
+                            setNoteType('NoteTxt')
+                            setIsExpanded(true)
+                        }}
+                    >
+                        A
+                    </button>
+
+                    <button
+                        type="button"
+                        className={noteType === 'NoteImg' ? 'active' : ''}
+                        onClick={() => {
+                            setNoteType('NoteImg')
+                            setIsExpanded(true)
+                        }}
+                    >
+                        🖼️
+                    </button>
+
+
+                    <button
+                        type="button"
+                        className={noteType === 'NoteTodos' ? 'active' : ''}
+                        onClick={() => {
+                            setNoteType('NoteTodos')
+                            setIsExpanded(true)
+                        }}
+                    >
+                        ≡
+                    </button>
+
+                    <label className="color-picker-label">
                         <input
                             type="color"
                             onChange={(ev) => setStyle({ backgroundColor: ev.target.value })}
                         />
                         <span className="color-icon">🎨</span>
                     </label>
-                    <button className="add-btn">Add</button>
+
+                    <button className="add-btn" type="submit">
+                        {isExpanded ? 'Close' : 'Add'}
+                    </button>
                 </div>
 
 
