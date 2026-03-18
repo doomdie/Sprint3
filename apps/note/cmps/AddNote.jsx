@@ -35,7 +35,7 @@ export function AddNote({ onSaveNote }) {
         }
     }, [isExpanded, title, txt, todos, noteType])
     function onAddNote(ev) {
-        if (ev) ev.preventDefault() 
+        if (ev) ev.preventDefault()
 
         const hasTitle = title.trim().length > 0
         const hasTxt = txt.trim().length > 0
@@ -60,7 +60,7 @@ export function AddNote({ onSaveNote }) {
         }
 
         setIsExpanded(false)
-        setNoteType('NoteTxt') 
+        setNoteType('NoteTxt')
         setTitle('')
         setTxt('')
         setTodos([{ txt: '', isDone: false }])
@@ -142,9 +142,8 @@ export function AddNote({ onSaveNote }) {
                             setIsExpanded(true)
                         }}
                     >
-                        🖼️
+                        <img src="../../../../apps/note/img/download.svg" alt="Image Note" style={{ width: '20px' }} />
                     </button>
-
 
                     <button
                         type="button"
@@ -162,7 +161,7 @@ export function AddNote({ onSaveNote }) {
                             type="color"
                             onChange={(ev) => setStyle({ backgroundColor: ev.target.value })}
                         />
-                        <span className="color-icon">🎨</span>
+                       <img src="../../../../apps/note/img/colorpicker.svg" alt="Image Note" style={{ width: '20px' }} />
                     </label>
 
                     <button className="add-btn" type="submit">
