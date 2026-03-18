@@ -43,7 +43,8 @@
     display: flex;
     flex-grow: 1;
     align-items: center;
-    background-color: grey;
+    
+    background-color: rgba(240, 243, 248);
     border-radius: 8px;
     width: 100%;
     margin-right: auto;
@@ -123,4 +124,8 @@
 .layout-toggle-btn:hover, .header-icon-link:hover {
     background-color: rgba(60, 64, 67, 0.08);
     color: #202124;
+}
+.header-icon-link img {
+    width: 18px; 
+    height: auto;
 }

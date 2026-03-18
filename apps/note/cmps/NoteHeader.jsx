@@ -21,8 +21,9 @@ export function NoteHeader({ filterBy, onSetFilterBy, onToggleSidebar, isGridLay
             </div>
 
             <div className="search-container">
-                <button className="search-icon-btn">
-                    <span className="material-icons">search</span>
+                <button className="search-icon-btn header-icon-link">
+                    {/* <span className="material-icons">search</span> */}
+                    <img src="apps/note/img/magnifying.png" alt="Menu" className="menu-icon-img" />
                 </button>
                 <input
                     type="text"
