@@ -1,6 +1,7 @@
-const { useState } = React
-
+const { useState, useEffect, useRef } = React
 export function AddNote({ onSaveNote }) {
+    const [isExpanded, setIsExpanded] = useState(false)
+    const noteRef = React.useRef(null)
     const [noteType, setNoteType] = useState('NoteTxt')
     const [title, setTitle] = useState('')
     const [txt, setTxt] = useState('')
@@ -15,10 +16,25 @@ export function AddNote({ onSaveNote }) {
         updatedTodos[index].txt = value
         setTodos(updatedTodos)
     }
+    useEffect(() => {
+    function handleClickOutside(ev) {
+        if (!isExpanded) return
 
+        if (noteRef.current && !noteRef.current.contains(ev.target)) {
+            onAddNote(ev)
+        }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+        document.removeEventListener('mousedown', handleClickOutside)
+    }
+}, [isExpanded, title, txt, todos, noteType])
     function onAddNote(ev) {
         ev.preventDefault()
-
+        if (!title && !txt && noteType !== 'NoteTodos') {
+            setIsExpanded(false)
+            return }
         const note = {
             id: 'n' + Date.now(),
             type: noteType,
@@ -40,20 +56,22 @@ export function AddNote({ onSaveNote }) {
     }
 
     return (
-        <section className="add-note" style={style}>
+        <section ref={noteRef} className="add-note" style={style}>
             <form onSubmit={onAddNote} className="add-note-form">
-                <input
+             {isExpanded && (   <input
                     className="title-input"
                     placeholder="Title"
                     value={title}
                     onChange={(ev) => setTitle(ev.target.value)}
-                />
+                /> ) }
 
                 {noteType === 'NoteTxt' && (
                     <textarea
                         className="note-content"
                         placeholder="Take a note..."
                         value={txt}
+                        onMouseDown={() => setIsExpanded(true)}
+                        onFocus={() => setIsExpanded(true)}
                         onChange={(ev) => setTxt(ev.target.value)}
                     />
                 )}
@@ -62,6 +80,7 @@ export function AddNote({ onSaveNote }) {
                     <input
                         placeholder="Enter image URL..."
                         value={txt}
+                        onFocus={() => setIsExpanded(true)}
                         onChange={(ev) => setTxt(ev.target.value)}
                     />
                 )}
@@ -74,6 +93,7 @@ export function AddNote({ onSaveNote }) {
                                 <input
                                     placeholder="List item"
                                     value={todo.txt}
+                                    onFocus={() => setIsExpanded(true)}
                                     onChange={(ev) => handleTodoChange(idx, ev.target.value)}
                                     onKeyDown={(ev) => {
                                         if (ev.key === 'Enter') {
