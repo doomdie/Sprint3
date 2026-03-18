@@ -4,3 +4,7 @@
     font-family: 'product-sans-regular';
     src: url(../../../../apps/note/fonts/ProductSansRegular.ttf);
 }
+@font-face {
+    font-family: 'google-sans-regular';
+    src: url(../../../../apps/note/fonts/GoogleSansRegular.ttf);
+}

@@ -21,6 +21,7 @@ export function NotePreview({ note, onRemove, onEdit }) {
 
             {type === 'NoteTxt' && (
                 <div className="note-text">
+                     <h3>{info.title}</h3>
                     <p>{info.txt}</p>
                 </div>
             )}

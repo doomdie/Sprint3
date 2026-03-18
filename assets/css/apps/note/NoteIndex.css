@@ -20,7 +20,9 @@
     width: 300px;
     box-shadow: 5px 0 15px rgba(0,0,0,0.1);
 }
-
+.bote-index, .note-index >* {
+    font-family: 'google-sans-regular'
+}
 .sidebar {
     display: flex;
     flex-direction: column;

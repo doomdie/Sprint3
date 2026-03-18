@@ -4,18 +4,62 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    display: grid;
-    place-items: center;
+    background-color: rgba(32, 33, 36, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
-.modal-content {
-    background: white;
-    padding: 2em;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 500px;
-    text-align: left; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+.modal-content.note-preview {
+    width: 100%;
+    max-width: 600px;
+    min-height: 150px;
+
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content.note-preview:hover {
+    background-color: inherit; 
+}
+
+.modal-content input, 
+.modal-content textarea {
+    width: 100%;
+   
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 10px 0;
+    font-family: inherit;
+    resize: none;
+}
+
+.modal-content .title-input {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.note-actions.modal-visible {
+    opacity: 1;
+    position: relative;
+    margin-top: auto;
+    padding-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-save {
+    background: transparent;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-save:hover {
+    background-color: rgba(60, 64, 67, 0.08);
 }

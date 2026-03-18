@@ -57,6 +57,7 @@ export function NoteIndex() {
     }
 
     function onUpdateNote(updatedInfo) {
+        console.log(updatedInfo)
         const noteToUpdate = { ...selectedNote, info: updatedInfo }
         noteService.save(noteToUpdate)
             .then(savedNote => {
