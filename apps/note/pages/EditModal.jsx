@@ -108,7 +108,13 @@ export function EditModal({ note, onClose, onSave }) {
 
                 <div className="note-actions modal-visible">
                     <button type="button" className="btn-cancel" onClick={onClose}>Cancel</button>
-                    <button type="button" className="btn-save" onClick={() => onSave(info)}>Save</button>
+                    <button
+                        type="button"
+                        className="btn-save"
+                        onClick={() => onSave({ ...note, info })} 
+                    >
+                        Save
+                    </button>
                 </div>
             </article>
         </div>

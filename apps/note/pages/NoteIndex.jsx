@@ -30,7 +30,6 @@ export function NoteIndex() {
 
     function onSaveNote(noteData) {
         let noteToSave
-
         if (typeof noteData === 'string') {
             noteToSave = {
                 info: { txt: noteData, title: '' },
@@ -51,9 +50,7 @@ export function NoteIndex() {
             .then(savedNote => {
                 setNotes(prevNotes => [savedNote, ...prevNotes])
             })
-            .catch(err => {
-                console.error('Check if your noteData accidentally had an ID:', err)
-            })
+            .catch(err => console.error('Save failed:', err))
     }
 
     function onUpdateNote(updatedNote) {
@@ -64,7 +61,7 @@ export function NoteIndex() {
                 ))
                 setSelectedNote(null)
             })
-            .catch(err => console.error('Failed to update note:', err))
+            .catch(err => console.error('Update failed:', err))
     }
 
     function onRemoveNote(noteId) {
@@ -76,15 +73,19 @@ export function NoteIndex() {
 
     function onEditNote(noteId) {
         const note = notes.find(n => n.id === noteId)
-        setSelectedNote(note)
+        if (note) setSelectedNote(note)
     }
 
     const regex = new RegExp(filterBy.txt, 'i')
 
     const filteredNotes = notes.filter(n => {
-        const title = n.info.title || ''
-        const txt = n.info.txt || ''
-        return regex.test(title) || regex.test(txt)
+        const info = n.info || {}
+        const title = info.title || ''
+        const txt = info.txt || ''
+        const hasMatchingTodo = (n.type === 'NoteTodos' && info.todos) ?
+            info.todos.some(todo => regex.test(todo.txt)) : false
+
+        return regex.test(title) || regex.test(txt) || hasMatchingTodo
     })
 
     const notesToDisplay = filteredNotes.sort((a, b) => {
@@ -116,14 +117,12 @@ export function NoteIndex() {
                     {pinnedNotes.length > 0 && (
                         <div className="pinned-section">
                             <h5 className="section-title">PINNED</h5>
-                            
-                                <NoteList
-                                    notes={pinnedNotes}
-                                    onRemove={onRemoveNote}
-                                    onEdit={onEditNote}
-                                    onUpdate={onUpdateNote}
-                                />
-                            
+                            <NoteList
+                                notes={pinnedNotes}
+                                onRemove={onRemoveNote}
+                                onEdit={onEditNote}
+                                onUpdate={onUpdateNote}
+                            />
                         </div>
                     )}
 
