@@ -17,24 +17,29 @@ export function AddNote({ onSaveNote }) {
         setTodos(updatedTodos)
     }
     useEffect(() => {
-    function handleClickOutside(ev) {
-        if (!isExpanded) return
+        function handleClickOutside(ev) {
+            if (!isExpanded) return
 
-        if (noteRef.current && !noteRef.current.contains(ev.target)) {
-            onAddNote(ev)
+            if (noteRef.current && !noteRef.current.contains(ev.target)) {
+                onAddNote(ev)
+            }
         }
-    }
 
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-        document.removeEventListener('mousedown', handleClickOutside)
-    }
-}, [isExpanded, title, txt, todos, noteType])
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [isExpanded, title, txt, todos, noteType])
     function onAddNote(ev) {
         ev.preventDefault()
-        if (!title && !txt && noteType !== 'NoteTodos') {
-            setIsExpanded(false)
-            return }
+        const hasTitle = title.trim().length > 0
+        const hasTxt = txt.trim().length > 0
+        const hasValidTodos = noteType === 'NoteTodos' && todos.some(todo => todo.txt.trim() !== '')
+       if (!hasTitle && !hasTxt && !hasValidTodos) {
+        setIsExpanded(false)
+        resetForm() 
+        return 
+    }
         const note = {
             id: 'n' + Date.now(),
             type: noteType,
@@ -54,16 +59,22 @@ export function AddNote({ onSaveNote }) {
         setTxt('')
         setTodos([{ txt: '', isDone: false }])
     }
+    function resetForm() {
+    setTitle('')
+    setTxt('')
+    setTodos([{ txt: '', isDone: false }])
+    setStyle({ backgroundColor: '#ffffff' })
+}
 
     return (
         <section ref={noteRef} className="add-note" style={style}>
             <form onSubmit={onAddNote} className="add-note-form">
-             {isExpanded && (   <input
+                {isExpanded && (<input
                     className="title-input"
                     placeholder="Title"
                     value={title}
                     onChange={(ev) => setTitle(ev.target.value)}
-                /> ) }
+                />)}
 
                 {noteType === 'NoteTxt' && (
                     <textarea
