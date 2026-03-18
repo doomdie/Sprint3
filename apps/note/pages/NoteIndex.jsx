@@ -56,17 +56,16 @@ export function NoteIndex() {
             })
     }
 
-    function onUpdateNote(updatedInfo) {
-        console.log(updatedInfo)
-        const noteToUpdate = { ...selectedNote, info: updatedInfo }
-        noteService.save(noteToUpdate)
-            .then(savedNote => {
-                setNotes(prevNotes => prevNotes.map(note =>
-                    note.id === savedNote.id ? savedNote : note
-                ))
-                setSelectedNote(null)
-            })
-    }
+   function onUpdateNote(updatedNote) {
+    noteService.save(updatedNote)
+        .then(savedNote => {
+            setNotes(prevNotes => prevNotes.map(note =>
+                note.id === savedNote.id ? savedNote : note
+            ))
+            setSelectedNote(null)
+        })
+        .catch(err => console.error('Failed to update note:', err))
+}
 
     function onRemoveNote(noteId) {
         noteService.remove(noteId)
@@ -74,6 +73,7 @@ export function NoteIndex() {
                 setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
             })
     }
+    
 
     function onEditNote(noteId) {
         const note = notes.find(n => n.id === noteId)
@@ -107,6 +107,7 @@ export function NoteIndex() {
                         notes={notesToDisplay}
                         onRemove={onRemoveNote}
                         onEdit={onEditNote}
+                        onUpdate={onUpdateNote}
                     />
 
                     {selectedNote && (

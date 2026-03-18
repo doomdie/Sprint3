@@ -1,7 +1,7 @@
 import { NotePreview } from "./NotePreview.jsx"
 const { Link } = ReactRouterDOM
 
-export function NoteList({ notes, onRemove, onEdit }) {
+export function NoteList({ notes, onRemove, onEdit, onUpdate }) {
     return (
         <section className="notes-list">
             <ul>
@@ -11,6 +11,7 @@ export function NoteList({ notes, onRemove, onEdit }) {
                             note={note} 
                             onRemove={onRemove} 
                             onEdit={onEdit} 
+                            onUpdate={onUpdate}
                         />
                     </li>
                 ))}

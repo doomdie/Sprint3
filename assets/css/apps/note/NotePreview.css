@@ -23,3 +23,14 @@
 .note-preview:hover .note-actions {
     opacity: 1;
 }
+.pin-btn {
+    opacity: 1 !important; 
+    color: #da4848;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.pin-btn.active {
+    color: #00ff00;
+}

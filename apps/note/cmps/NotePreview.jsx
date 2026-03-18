@@ -1,18 +1,30 @@
-export function NotePreview({ note, onRemove, onEdit }) {
-    const { id, type, info, style } = note
-
+export function NotePreview({ note, onRemove, onEdit, onUpdate }) {
+    const { id, type, info, style, isPinned } = note
+    function onTogglePin(ev) {
+        ev.stopPropagation()
+        onUpdate({ ...note, isPinned: !isPinned })
+    }
     return (
-        <article 
-            className="note-preview" 
-            style={style} 
+        <article
+            className={`note-preview ${isPinned ? 'pinned' : ''}`}
+            style={style}
             onClick={() => onEdit(id)}
         >
             <div className="note-actions">
-                <button 
+                <button
+                    className={`pin-btn ${isPinned ? 'active' : ''}`}
+                    onClick={onTogglePin}
+                    title={isPinned ? "Unpin note" : "Pin note"}
+                >
+                    <span className="material-symbols-outlined">
+                        {isPinned ? 'Unpin Note' : 'Note'}
+                    </span>
+                </button>
+                <button
                     onClick={(ev) => {
                         ev.stopPropagation()
                         onRemove(id)
-                    }} 
+                    }}
                     className="close"
                 >
                     <i className="fa-regular fa-trash-can"></i>
