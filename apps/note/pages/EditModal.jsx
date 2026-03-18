@@ -7,9 +7,28 @@ export function EditModal({ note, onClose, onSave }) {
         setInfo(prevInfo => ({ ...prevInfo, [name]: value }))
     }
 
+    function onAddTodo(txt) {
+        if (!txt.trim()) return
+        const newTodo = { txt, isDone: false }
+        const newTodos = [...(info.todos || []), newTodo]
+        setInfo(prevInfo => ({ ...prevInfo, todos: newTodos }))
+    }
+
+    function removeTodo(idx) {
+        const newTodos = info.todos.filter((_, i) => i !== idx)
+        setInfo(prevInfo => ({ ...prevInfo, todos: newTodos }))
+    }
+
     function handleTodoChange(idx, value) {
         const newTodos = info.todos.map((todo, i) =>
             i === idx ? { ...todo, txt: value } : todo
+        )
+        setInfo(prevInfo => ({ ...prevInfo, todos: newTodos }))
+    }
+
+    function toggleTodo(idx) {
+        const newTodos = info.todos.map((todo, i) =>
+            i === idx ? { ...todo, isDone: !todo.isDone } : todo
         )
         setInfo(prevInfo => ({ ...prevInfo, todos: newTodos }))
     }
@@ -53,21 +72,42 @@ export function EditModal({ note, onClose, onSave }) {
 
                 {type === 'NoteTodos' && (
                     <div className="note-todos">
-                        {info.todos.map((todo, idx) => (
-                            <div key={idx} className="todo-row">
-                                <i className="fa-regular fa-square"></i>
+                        <div className="todo-list">
+                            {(info.todos || []).map((todo, idx) => (
+                                <div key={idx} className={`todo-row ${todo.isDone ? 'done' : ''}`}>
+                                    <i
+                                        className={`fa-regular ${todo.isDone ? 'fa-check-square' : 'fa-square'}`}
+                                        onClick={() => toggleTodo(idx)}
+                                    ></i>
+                                    <input
+                                        value={todo.txt}
+                                        onChange={(ev) => handleTodoChange(idx, ev.target.value)}
+                                    />
+                                    <button className="btn-remove-todo" onClick={() => removeTodo(idx)}>
+                                        <i className="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                            ))}
+
+                            <div className="todo-row add-todo-row">
+                                <i className="fa-solid fa-plus"></i>
                                 <input
-                                    value={todo.txt}
-                                    onChange={(ev) => handleTodoChange(idx, ev.target.value)}
+                                    type="text"
+                                    placeholder="List item"
+                                    onKeyDown={(ev) => {
+                                        if (ev.key === 'Enter') {
+                                            onAddTodo(ev.target.value)
+                                            ev.target.value = ''
+                                        }
+                                    }}
                                 />
                             </div>
-                        ))}
+                        </div>
                     </div>
                 )}
 
                 <div className="note-actions modal-visible">
                     <button type="button" className="btn-cancel" onClick={onClose}>Cancel</button>
-
                     <button type="button" className="btn-save" onClick={() => onSave(info)}>Save</button>
                 </div>
             </article>

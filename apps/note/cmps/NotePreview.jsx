@@ -2,44 +2,45 @@ export function NotePreview({ note, onRemove, onEdit }) {
     const { id, type, info, style } = note
 
     return (
-        <article className='note-preview' style={style}>
+        <article 
+            className="note-preview" 
+            style={style} 
+            onClick={() => onEdit(id)}
+        >
             <div className="note-actions">
                 <button 
-                    onClick={() => onRemove(id)} 
-                    className='close'
+                    onClick={(ev) => {
+                        ev.stopPropagation()
+                        onRemove(id)
+                    }} 
+                    className="close"
                 >
                     <i className="fa-regular fa-trash-can"></i>
                 </button>
-                 <button 
-                    onClick={() => onEdit(id)} 
-                    className='close'
-                >
-                    <i className="fa-solid fa-gear"></i>
-                </button>
-                
             </div>
 
             {type === 'NoteTxt' && (
                 <div className="note-text">
-                     <h3>{info.title}</h3>
+                    {info.title && <h3>{info.title}</h3>}
                     <p>{info.txt}</p>
                 </div>
             )}
 
             {type === 'NoteImg' && (
                 <div className="note-img">
-                    <h3>{info.title}</h3>
+                    {info.title && <h3>{info.title}</h3>}
                     <img src={info.url} alt={info.title} />
                 </div>
             )}
 
             {type === 'NoteTodos' && (
                 <div className="note-todos">
-                    <h3>{info.title}</h3>
-                    <ul>
-                        {info.todos.map((todo, idx) => (
+                    {info.title && <h3>{info.title}</h3>}
+                    <ul className="clean-list">
+                        {(info.todos || []).map((todo, idx) => (
                             <li key={idx} className={todo.isDone ? 'done' : ''}>
-                                {todo.txt}
+                                <i className={`fa-regular ${todo.isDone ? 'fa-check-square' : 'fa-square'}`}></i>
+                                <span>{todo.txt}</span>
                             </li>
                         ))}
                     </ul>
