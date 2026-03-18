@@ -68,3 +68,59 @@
     margin-left: 20px;  
    flex-shrink: 0;
 }
+
+.logotext {
+    font-family: 'product-sans-regular'
+}
+.menu-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    transition: background-color 0.15s ease;
+}
+
+.menu-btn:hover {
+    background-color: rgba(60, 64, 67, 0.08);
+}
+
+.menu-btn:active {
+    background-color: rgba(60, 64, 67, 0.15);
+}
+
+.menu-btn img {
+    width: 24px;
+    height: 24px;
+    opacity: 0.7;
+}
+
+.menu-btn:hover img {
+    opacity: 1;
+}
+.layout-toggle-btn, .header-icon-link {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0 4px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    /* This is similar to the damn uhh, other menu buttons but I'm not sure if I can just add the same class to the other one willy nilly. Will check later.*/
+    color: #5f6368;
+    transition: background-color 0.15s, color 0.15s;
+}
+.layout-toggle-btn:hover, .header-icon-link:hover {
+    background-color: rgba(60, 64, 67, 0.08);
+    color: #202124;
+}

@@ -1,5 +1,7 @@
 const { NavLink } = ReactRouterDOM
-export function NoteHeader({ filterBy, onSetFilterBy, onToggleSidebar }) {
+
+export function NoteHeader({ filterBy, onSetFilterBy, onToggleSidebar, isGridLayout, setIsGridLayout }) {
+    
     function handleSearch(ev) {
         const txt = ev.target.value
         onSetFilterBy(prev => ({ ...prev, txt }))
@@ -8,13 +10,13 @@ export function NoteHeader({ filterBy, onSetFilterBy, onToggleSidebar }) {
     return (
         <header className="note-header">
             <div className="logo-container">
-                <button className="menu-btn" onClick={onToggleSidebar}>
-                    <span className="material-icons">menu</span>
+                <button className="menu-btn" onClick={onToggleSidebar} title="Main menu">
+                    <img src="apps/note/img/menu.png" alt="Menu" className="menu-icon-img" />
                 </button>
 
                 <NavLink to="/note" className="logo-link">
                     <img src="apps/note/img/keeps.png" alt="Keep Logo" />
-                    <span>Keep</span>
+                    <span className="logotext">Keep</span>
                 </NavLink>
             </div>
 
@@ -30,14 +32,25 @@ export function NoteHeader({ filterBy, onSetFilterBy, onToggleSidebar }) {
                 />
             </div>
 
-            <nav className="header-nav">
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/about">About</NavLink>
+            <div className="header-actions">
+               
+                <nav className="header-nav">
+                    <NavLink to="/" className="header-icon-link">Home</NavLink>
+                    <NavLink to="/about" className="header-icon-link">About</NavLink>
+                    <NavLink to="/mail" className="header-icon-link">Mail</NavLink>
+                    <NavLink to="/note" className="header-icon-link">Note</NavLink>
+                     <button 
+                    className="layout-toggle-btn" 
+                    onClick={() => setIsGridLayout(!isGridLayout)}
+                    title={isGridLayout ? "List view" : "Grid view"}
+                >
+                    <span className="material-icons">
+                        {isGridLayout ? 'view_list' : 'grid_view'}
+                    </span>
+                </button>
 
-                <NavLink to="/mail">Mail</NavLink>
-
-                <NavLink to="/note">Note</NavLink>
-            </nav>
+                </nav>
+            </div>
         </header>
     )
 }

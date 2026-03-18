@@ -28,33 +28,33 @@ export function NoteIndex() {
         setIsSidebarOpen(prev => !prev)
     }
 
-function onSaveNote(noteData) {
-    let noteToSave
+    function onSaveNote(noteData) {
+        let noteToSave
 
-    if (typeof noteData === 'string') {
-        noteToSave = {
-            info: { txt: noteData, title: '' },
-            type: 'NoteTxt',
-            isPinned: false,
-            style: { backgroundColor: '#ffffff' }
+        if (typeof noteData === 'string') {
+            noteToSave = {
+                info: { txt: noteData, title: '' },
+                type: 'NoteTxt',
+                isPinned: false,
+                style: { backgroundColor: '#ffffff' }
+            }
+        } else {
+            const { id, ...rest } = noteData
+            noteToSave = {
+                ...rest,
+                isPinned: rest.isPinned || false,
+                style: rest.style || { backgroundColor: '#ffffff' }
+            }
         }
-    } else {
-        const { id, ...rest } = noteData 
-        noteToSave = {
-            ...rest,
-            isPinned: rest.isPinned || false,
-            style: rest.style || { backgroundColor: '#ffffff' }
-        }
+
+        noteService.save(noteToSave)
+            .then(savedNote => {
+                setNotes(prevNotes => [savedNote, ...prevNotes])
+            })
+            .catch(err => {
+                console.error('Check if your noteData accidentally had an ID:', err)
+            })
     }
-
-    noteService.save(noteToSave)
-        .then(savedNote => {
-            setNotes(prevNotes => [savedNote, ...prevNotes])
-        })
-        .catch(err => {
-            console.error('Check if your noteData accidentally had an ID:', err)
-        })
-}
 
     function onUpdateNote(updatedInfo) {
         const noteToUpdate = { ...selectedNote, info: updatedInfo }
@@ -84,18 +84,15 @@ function onSaveNote(noteData) {
 
     return (
         <React.Fragment>
-            <NoteHeader 
-                filterBy={filterBy} 
-                onSetFilterBy={setFilterBy} 
-                onToggleSidebar={toggleSidebar} 
+            <NoteHeader
+                filterBy={filterBy}
+                onSetFilterBy={setFilterBy}
+                onToggleSidebar={toggleSidebar}
+                isGridLayout={isGridLayout}
+                setIsGridLayout={setIsGridLayout}
             />
-            
-            <button 
-                className="layout-toggle-btn" 
-                onClick={() => setIsGridLayout(!isGridLayout)}
-            >
-                {isGridLayout ? 'Switch to List' : 'Switch to Grid'}
-            </button>
+
+          
 
             <section className={`gain-layout ${isSidebarOpen ? 'sidebar-open' : ''}`}>
                 <div className="sidebar-container">
