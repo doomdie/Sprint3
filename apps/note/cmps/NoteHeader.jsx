@@ -45,6 +45,7 @@ export function NoteHeader({ filterBy, onSetFilterBy, onToggleSidebar, isGridLay
                         onClick={() => setIsGridLayout(!isGridLayout)}
                         title={isGridLayout ? "List view" : "Grid view"}
                     >
+                        {/* had to look this up. Inconsistent with the rest of the code but it's ok. */}
                         {isGridLayout ? (
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M3 5H21V7H3V5ZM3 11H21V13H3V11ZM3 17H21V19H3V17Z" />
