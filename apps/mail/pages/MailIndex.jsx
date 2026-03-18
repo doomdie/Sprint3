@@ -18,6 +18,7 @@ export function MailIndex() {
     const [draftCount, setDraftCount] = useState(0)
     const [sortBy, setSortBy] = useState({ field: 'sentAt', dir: 1 })
     const [draftToEdit, setDraftToEdit] = useState(null)
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
     const params = useParams()
     const navigate = useNavigate()
 
@@ -122,7 +123,11 @@ export function MailIndex() {
     // if (!mails) return <div>Loading...</div>
 
     return <React.Fragment>
-        <MailHeader filterBy={filterBy} onSetFilterBy={setFilterBy} />
+        <MailHeader
+            filterBy={filterBy}
+            onSetFilterBy={setFilterBy}
+            onToggleSidebar={() => setIsSidebarCollapsed(prev => !prev)}
+        />
 
         <section className="mail-index">
 
@@ -132,6 +137,7 @@ export function MailIndex() {
                 draftCount={draftCount}
                 filterBy={filterBy}
                 onSetFilterBy={onChangeFilter}
+                isCollapsed={isSidebarCollapsed}
             />
 
             <div className="mail-content">

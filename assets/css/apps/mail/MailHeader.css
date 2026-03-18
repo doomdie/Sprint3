@@ -11,9 +11,37 @@
     gap: 1rem;
 
     padding: 0.67rem;
-    padding-left: 15rem;
+    /* padding-left: 15rem; */
     background-color: var(--mail-blue1);
     margin-bottom: rem;
+}
+
+.mail-header-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1rem;
+
+    padding-right: 4rem;
+    user-select: none;
+
+}
+
+.mail-header-logo .icon-hover-bg img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.mail-logo-icon {
+    width: 2rem;
+    height: 2rem;
+
+    margin-left: 1rem;
+}
+
+.mail-logo-text {
+    font-size: 1.3rem;
+    color: var(--gray3);
 }
 
 .mail-search {

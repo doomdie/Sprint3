@@ -101,6 +101,9 @@
 .mail-compose textarea {
     min-height: 25rem;
     resize: vertical;
+
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 
@@ -146,7 +149,7 @@
 
 .compose-footer .discard-btn {
     padding: 0.3rem;
-   
+
     user-select: none;
 }
 

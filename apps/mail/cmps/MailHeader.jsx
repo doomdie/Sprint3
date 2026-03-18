@@ -1,7 +1,7 @@
 const { useState } = React
 const { NavLink } = ReactRouterDOM
 
-export function MailHeader({ filterBy, onSetFilterBy }) {
+export function MailHeader({ filterBy, onSetFilterBy, onToggleSidebar }) {
 
     const [isSearchFocus, setIsSearchFocus] = useState(false)
 
@@ -21,6 +21,15 @@ export function MailHeader({ filterBy, onSetFilterBy }) {
     }
 
     return <header className="mail-header">
+
+        <div className="mail-header-logo">
+            <button className="icon-hover-bg" onClick={onToggleSidebar} title="Main menu">
+                <img src="assets/img/menu.svg" alt="menu" />
+            </button>
+            <img className="mail-logo-icon" src="assets/img/mail.svg" alt="mail" title="Memail" />
+            <span className="mail-logo-text" title="Memail">Memail</span>
+        </div>
+
         <div className={`mail-search ${isSearchFocus ? 'focused' : ''}`}>
             <img src="assets/img/search.svg" alt="search" />
             <input

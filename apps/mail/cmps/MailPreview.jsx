@@ -23,7 +23,7 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
     }
 
     function onClickMail(ev) {
-        if (status === 'draft') {
+        if (!mail.sentAt) {
             ev.preventDefault()
             onOpenDraft(mail)
         }
