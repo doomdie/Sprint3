@@ -9,7 +9,6 @@
 @import './apps/note/NoteList.css';
 
 @import './apps/note/NoteIndex.css';
-<<<<<<< HEAD
 @import './apps/note/base.css';
 
 @import './apps/note/NoteAdd.css';
@@ -24,11 +23,9 @@
 
 @import './apps/note/NotePreview.css';
 
-=======
 @import './apps/mail/MailCompose.css';
 @import './apps/mail/MailDetails.css';
 @import './apps/mail/MailHeader.css';
->>>>>>> feature/email
 @import './apps/mail/MailIndex.css';
 @import './apps/mail/MailList.css';
 @import './apps/mail/MailPreview.css';
