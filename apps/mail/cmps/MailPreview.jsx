@@ -61,7 +61,7 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
 
 
 
-    return <Link to={`/mail/${mail.id}`} className="mails-preview-link" onClick={onClickMail}>
+    return <Link to={`/mail/${mail.id}?folder=${status}`} className="mails-preview-link" onClick={onClickMail}>
         <article
             className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`}>
 

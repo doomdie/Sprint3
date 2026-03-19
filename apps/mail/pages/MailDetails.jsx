@@ -1,4 +1,4 @@
-const { useParams, useNavigate } = ReactRouterDOM
+const { useParams, useNavigate, useSearchParams } = ReactRouterDOM
 const { useState, useEffect } = React
 
 import { mailService } from "../services/mail.service.js"
@@ -9,20 +9,28 @@ export function MailDetails() {
     const [mailIds, setMailIds] = useState([])
     const [isReply, setIsReply] = useState(false)
     const [replyBody, setReplyBody] = useState('')
+    const [currentStatus, setCurrentStatus] = useState(null)
     const { mailId } = useParams()
     const navigate = useNavigate()
 
+    const [searchParams] = useSearchParams()
+    const folderFromUrl = searchParams.get('folder')
+
 
     useEffect(() => {
+        setIsReply(false)
         mailService.get(mailId)
             .then(mail => {
+                if (!mail.sentAt) {
+                    navigate('/mail')
+                    return
+                }
                 if (!mail.isRead) {
                     mail.isRead = true
                     mailService.save(mail)
                 }
                 setMail(mail)
-                const status = getMailStatus(mail)
-                mailService.query({ status })
+                mailService.query({ status: folderFromUrl || 'inbox' })
                     .then(mails => setMailIds(mails.map(m => m.id)))
             })
     }, [mailId])
@@ -63,14 +71,14 @@ export function MailDetails() {
     function onNext() {
         const idx = mailIds.indexOf(mailId)
         if (idx < mailIds.length - 1) {
-            navigate('/mail/' + mailIds[idx + 1])
+            navigate('/mail/' + mailIds[idx + 1] + '?folder=' + folderFromUrl)
         }
     }
 
     function onPrev() {
         const idx = mailIds.indexOf(mailId)
         if (idx > 0) {
-            navigate('/mail/' + mailIds[idx - 1])
+            navigate('/mail/' + mailIds[idx - 1] + '?folder=' + folderFromUrl)
         }
     }
 
@@ -123,11 +131,22 @@ export function MailDetails() {
                     {mailIds.length - mailIds.indexOf(mailId)} of {mailIds.length}
                 </span>}
 
-                <button className="icon-hover-bg" onClick={onNext} title="Newer">
+                <button
+                    className="icon-hover-bg"
+                    onClick={onNext}
+                    title="Newer"
+                    disabled={mailIds.indexOf(mailId) === mailIds.length - 1}
+
+                >
                     <img src="assets/img/chevron_backward.svg" alt="newer" />
                 </button>
 
-                <button className="icon-hover-bg" onClick={onPrev} title="Older">
+                <button
+                    className="icon-hover-bg"
+                    onClick={onPrev}
+                    title="Older"
+                    disabled={mailIds.indexOf(mailId) === 0}
+                >
                     <img src="assets/img/chevron_forward.svg" alt="older" />
                 </button>
             </div>
@@ -157,41 +176,45 @@ export function MailDetails() {
             <p>{mail.body}</p>
         </div>
 
-        {!isReply && <div className="mail-reply-actions">
-            <button className="reply-btn" onClick={() => setIsReply(true)}>
-                <img src="assets/img/reply.svg" alt="reply" />
-                Reply
-            </button>
-        </div>}
+        {
+            !isReply && <div className="mail-reply-actions">
+                <button className="reply-btn" onClick={() => setIsReply(true)}>
+                    <img src="assets/img/reply.svg" alt="reply" />
+                    Reply
+                </button>
+            </div>
+        }
 
-        {isReply && (
-            <div className="reply-compose-wrapper">
-                <div className="sender-avatar">M</div>
+        {
+            isReply && (
+                <div className="reply-compose-wrapper">
+                    <div className="sender-avatar">M</div>
 
-                <div className="mail-reply-form">
-                    <div className="reply-header">
-                        <span>{isSentByMe ? mail.to : mail.from}</span>
-                    </div>
+                    <div className="mail-reply-form">
+                        <div className="reply-header">
+                            <span>{isSentByMe ? mail.to : mail.from}</span>
+                        </div>
 
-                    <textarea
-                        placeholder="Write your reply..."
-                        value={replyBody}
-                        onChange={(ev) => setReplyBody(ev.target.value)}
-                    />
+                        <textarea
+                            placeholder="Write your reply..."
+                            value={replyBody}
+                            onChange={(ev) => setReplyBody(ev.target.value)}
+                        />
 
-                    <div className="reply-footer">
-                        <button className="send-btn" onClick={onSendReply}>Send</button>
+                        <div className="reply-footer">
+                            <button className="send-btn" onClick={onSendReply}>Send</button>
 
-                        <button
-                            className="icon-hover-bg"
-                            onClick={onDiscardReply}
-                            title="Discard draft"
-                        >
-                            <img src="assets/img/delete.svg" alt="discard" />
-                        </button>
+                            <button
+                                className="icon-hover-bg"
+                                onClick={onDiscardReply}
+                                title="Discard draft"
+                            >
+                                <img src="assets/img/delete.svg" alt="discard" />
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        )}
-    </section>
+            )
+        }
+    </section >
 }

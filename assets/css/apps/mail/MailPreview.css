@@ -134,6 +134,7 @@
 
 
 .draft-label {
+    font-weight: normal;
     color: var(--color4)
 }
 

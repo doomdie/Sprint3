@@ -34,6 +34,14 @@
     user-select: none;
 }
 
+.mail-details-nav button:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.mail-details-nav button:disabled::before {
+    display: none;
+}
 
 .mail-position {
     color: var(--mail-text-light);
