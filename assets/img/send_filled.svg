@@ -1,0 +1,8 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+	<defs>
+		<image  width="19" height="16" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAQCAMAAADDGrRQAAAAAXNSR0IB2cksfwAAAJNQTFRFHx8fHx8fHx8fAAAAHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fgWN9RQAAADF0Uk5Tyl4HAP/qhh38r0P9/tZrDfKUJ7xQAyhnpOfjeRQAG1ug3uz4oTQiYaLkLano9vvXbGVnUKcAAACVSURBVHicbZCxCsJAEERn8OBWUOzSBQux0f//FVNYBFSwEATRYgOROJdCLzF7ze07ZmduCZIYFkOC7ZgBgWyGLDbmmJOvjBnQ6izIR87g1km9Iu+JFbJ4CsI6OtRdwTI9qM4wt+KEte6JyYBHaMjy1rPdpWQtVXzPvtrk4eZhW/08xDxicxhncWDPOs889bf/HUzs6gNfTiiF7z/gZwAAAABJRU5ErkJggg=="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Layer copy" href="#img1" x="3" y="4"/>
+</svg>

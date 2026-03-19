@@ -2,12 +2,38 @@
     --bg1: lightblue;
     --bg2: rgb(50, 160, 204);
     --bg3: rgb(89, 134, 206);
-    
+
     --color1: rgb(26, 115, 232);
     --color2: rgb(24, 128, 56);
     --color3: rgb(197, 34, 31);
+    --color4: rgb(255, 4, 0);
 
-    --gray2: #aaa;
+
+    --gray1: #aaa;
     --gray2: #888;
-    --gray2: #333;
+    --gray3: #333;
+
+    --white: #fff;
+
+    --yellow1: #f7c14b;
+
+    --mail-blue1: #f6f8fc;
+    --mail-blue2: #c2e7ff;
+    --mail-blue3: #d4e3ff;
+
+    --mail-border: #e0e0e0;
+    --mail-unread-bg: var(--white);
+    --mail-read-bg: #f2f6fc;
+
+    --mail-text: #202124;
+    --mail-text-light: #5f6368;
+
+    --mail-compose-header: #404040;
+    --mail-compose-shadow: rgba(0, 0, 0, 0.2);
+
+    --mail-search-bg: #e1eafa;
+
+
+    /* FONTS */
+    --font-main: 'Roboto', sans-serif;
 }

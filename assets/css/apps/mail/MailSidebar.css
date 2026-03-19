@@ -1,0 +1,130 @@
+/* mail sidebar */
+
+.mail-sidebar-wrapper {
+    width: 15rem;
+    padding-right: 1rem;
+
+    transition: width 0.3s;
+}
+
+.mail-sidebar-wrapper.collapsed {
+    width: 4.5rem;
+}
+
+.mail-sidebar {
+    width: 15rem;
+    padding-top: 0.5rem;
+
+    overflow: hidden;
+
+    transition: width 0.3s;
+}
+
+.mail-sidebar.collapsed {
+    width: 4.5rem;
+}
+
+.mail-sidebar.collapsed.sidebar-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    width: 15rem;
+    height: 100%;
+    padding-right: 1rem;
+    background-color: var(--mail-blue1);
+}
+
+
+/* compose */
+.compose-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    padding: 0.85rem;
+    border: none;
+    border-radius: 1rem;
+    background-color: var(--mail-blue2);
+    margin: 0 0 1rem 0.7rem;
+
+    font-size: 0.9rem;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition: box-shadow 0.3s, border-radius 0.3s;
+}
+
+.compose-btn:hover {
+    box-shadow: 0 2px 6px var(--gray1);
+}
+
+.compose-btn img {
+    width: 1.3rem;
+    height: 1.3rem;
+    flex-shrink: 0;
+}
+
+.mail-sidebar.collapsed .compose-btn {
+    border-radius: 1rem;
+}
+
+.mail-sidebar.collapsed.sidebar-hover .compose-btn {
+    border-radius: 1rem;
+}
+
+/* folders */
+.folder-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.folder {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    padding: 0.5rem 0.75rem 0.5rem 1.2rem;
+    border-radius: 0 1rem 1rem 0;
+
+    font-size: 0.85rem;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+}
+
+.folder:hover {
+    background-color: var(--mail-border);
+}
+
+.folder.active {
+    background-color: var(--mail-blue3);
+    font-weight: 700;
+}
+
+.folder img {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex-shrink: 0;
+}
+
+.folder-count {
+    margin-left: auto;
+}
+
+.folder-dot {
+    position: absolute;
+    top: 0.2rem;
+    left: 2.2rem;
+
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background-color: var(--color3);
+}
