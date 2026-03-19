@@ -237,3 +237,10 @@
     opacity: 0.85;
     transform: scale(1.02);
 }
+
+
+.mail-reply-message {
+    border-top: 1px solid var(--mail-border);
+    padding-top: 1rem;
+    margin-top: 1rem;
+}

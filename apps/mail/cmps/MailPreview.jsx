@@ -42,9 +42,16 @@ export function MailPreview({ mail, onToggleRead, onRemoveMail, onToggleStar, se
 
     function getDisplayName() {
         if (status === 'draft') return 'Draft'
-        if (status === 'sent') return 'To: ' + mail.to
+        if (status === 'sent') {
+            if (mail.from === 'user@appsus.com')
+                return 'To: ' + mail.to
+            return 'To: ' + mail.from
+        }
         if (status === 'starred' && mail.from === 'user@appsus.com') return 'me'
         if (status === 'trash' && mail.from === 'user@appsus.com') return 'me'
+        if (mail.replies && mail.replies.length > 0) {
+            return mail.from + ', me'
+        }
         if (status === 'inbox') return mail.from
         return mail.from
     }

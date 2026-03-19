@@ -9,7 +9,6 @@ export function MailDetails() {
     const [mailIds, setMailIds] = useState([])
     const [isReply, setIsReply] = useState(false)
     const [replyBody, setReplyBody] = useState('')
-    const [currentStatus, setCurrentStatus] = useState(null)
     const { mailId } = useParams()
     const navigate = useNavigate()
 
@@ -83,7 +82,21 @@ export function MailDetails() {
     }
 
     function onSendReply() {
-        console.log('sent')
+        if (!replyBody) return
+        const reply = {
+            from: 'user@appsus.com',
+            to: isSentByMe ? mail.to : mail.from,
+            body: replyBody,
+            sentAt: Date.now()
+        }
+        if (!mail.replies) mail.replies = []
+        mail.replies.push(reply)
+        mailService.save(mail)
+            .then(saved => {
+                setMail({ ...saved })
+                setReplyBody('')
+                setIsReply(false)
+            })
     }
 
     function onDiscardReply() {
@@ -176,45 +189,62 @@ export function MailDetails() {
             <p>{mail.body}</p>
         </div>
 
-        {
-            !isReply && <div className="mail-reply-actions">
-                <button className="reply-btn" onClick={() => setIsReply(true)}>
-                    <img src="assets/img/reply.svg" alt="reply" />
-                    Reply
-                </button>
-            </div>
-        }
-
-        {
-            isReply && (
-                <div className="reply-compose-wrapper">
+        {mail.replies && mail.replies.map((reply, idx) =>
+            <div key={idx} className="mail-reply-message">
+                <div className="mail-details-header">
                     <div className="sender-avatar">M</div>
-
-                    <div className="mail-reply-form">
-                        <div className="reply-header">
-                            <span>{isSentByMe ? mail.to : mail.from}</span>
+                    <div className="sender-info">
+                        <div className="sender-line">
+                            <span className="sender-name">{reply.from === 'user@appsus.com' ? 'Mahatma Appsus' : reply.from}</span>
+                            <span className="sender-email">&lt;{reply.from}&gt;</span>
+                            <span className="mail-details-date">{formatDetailDate(reply.sentAt)}</span>
                         </div>
-
-                        <textarea
-                            placeholder="Write your reply..."
-                            value={replyBody}
-                            onChange={(ev) => setReplyBody(ev.target.value)}
-                        />
-
-                        <div className="reply-footer">
-                            <button className="send-btn" onClick={onSendReply}>Send</button>
-
-                            <button
-                                className="icon-hover-bg"
-                                onClick={onDiscardReply}
-                                title="Discard draft"
-                            >
-                                <img src="assets/img/delete.svg" alt="discard" />
-                            </button>
-                        </div>
+                        <span className="mail-details-to">to {reply.to}</span>
                     </div>
                 </div>
-            )
+                <div className="mail-details-body">
+                    <p>{reply.body}</p>
+                </div>
+            </div>
+        )}
+
+        {!isReply && <div className="mail-reply-actions">
+            <button className="reply-btn" onClick={() => setIsReply(true)}>
+                <img src="assets/img/reply.svg" alt="reply" />
+                Reply
+            </button>
+        </div>
+        }
+
+        {isReply && (
+            <div className="reply-compose-wrapper">
+                <div className="sender-avatar">M</div>
+
+                <div className="mail-reply-form">
+                    <div className="reply-header">
+                        <span>{isSentByMe ? mail.to : mail.from}</span>
+                    </div>
+
+                    <textarea
+                        placeholder="Write your reply..."
+                        value={replyBody}
+                        onChange={(ev) => setReplyBody(ev.target.value)}
+                    />
+
+                    <div className="reply-footer">
+                        <button className="send-btn" onClick={onSendReply}>Send</button>
+
+                        <button
+                            className="icon-hover-bg"
+                            onClick={onDiscardReply}
+                            title="Discard draft"
+                        >
+                            <img src="assets/img/delete.svg" alt="discard" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )
         }
     </section >
 }
